@@ -1,0 +1,89 @@
+.ui-scroll-ctrl-content{
+    overflow: hidden
+}
+
+.ui-scroll-ctrl-scroll{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    border-top: 1px solid #e1e1e1;
+    border-left: 1px solid #e1e1e1;
+    cursor: default;
+    -webkit-user-select: none;
+    -moz-user-select: none
+}
+
+.ui-scroll-ctrl-scroll-hover{
+    border-top: 1px solid #ababab;
+    border-left: 1px solid #ababab;
+    border-bottom: 1px solid #ababab;
+}
+
+.ui-scroll-ctrl-scroll-touch{
+    width: 7px;
+    border: 1px solid #ababab;
+    border-right: 1px solid #a1a1a1;
+}
+
+.ui-scroll-ctrl-scroll .ui-scroll-axis{
+    width: 8px;
+    left: 0;
+    z-index: 0;
+    position: absolute;
+    background: #f2f2f2;
+}
+
+.ui-scroll-ctrl-scroll-touch .ui-scroll-axis{
+    width: 7px;
+    background: #bfbfbf;
+}
+
+.ui-scroll-ctrl-scroll-hover .ui-scroll-axis{
+    background: #bfbfbf;
+}
+
+.ui-scroll-ctrl-scroll .ui-scroll-slider{
+    overflow: hidden;
+    width: 7px;
+    height: 14px;
+    position: absolute;
+    left: 0;
+    z-index: 10;
+    display: none;
+    background: #ffffff;
+    margin-top: -1px;
+    margin-left: -1px;
+    border: 1px solid #e1e1e1;
+    border-bottom: 1px solid #d4d4d4;
+    cursor: default;
+}
+
+.ui-scroll-ctrl-scroll-touch .ui-scroll-slider{
+    border: 1px solid #bebebe;
+    border-bottom: 1px solid #aeaeae;
+}
+
+.ui-scroll-ctrl-scroll-hover .ui-scroll-slider{
+    border: 1px solid #bebebe;
+    border-bottom: 1px solid #aeaeae;
+}
+
+.ui-scroll-ctrl-scroll .ui-scroll-up, .ui-scroll-ctrl-scroll .ui-scroll-down{
+    overflow: hidden;
+    width: 7px;
+    height: 14px;
+    position: absolute;
+    left: 0;
+    background: #ffffff;
+    z-index: 10;
+    cursor: default;
+}
+
+.ui-scroll-ctrl-scroll .ui-scroll-up{
+    top: 0;
+}
+
+.ui-scroll-ctrl-scroll .ui-scroll-down{
+    bottom: 0;
+}

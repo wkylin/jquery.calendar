@@ -5,6 +5,7 @@
     <title>日期管理</title>
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/jquery.calendar.css" />
+    <link rel="stylesheet" href="css/scrollbarv.css" />
 </head>
 <body>
     <div class="ui-calendar">
@@ -13,7 +14,7 @@
                 <div class="ui-calendar-container fn-clear">
                     <div class="ui-calendar-select-box">
                         <div class="ui-calendar-year-box">
-                            <div tabindex="0" class="ui-dropdown ui-dropdown-common">
+                            <div tabindex="0" class="ui-dropdown ui-dropdown-common ui-dropdown-hover">
                                 <div class="ui-dropdown-btn-group">
                                     <div class="ui-dropdown-btn">2015年</div>
                                     <div class="ui-dropdown-btn-icon">
@@ -22,13 +23,25 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="ui-dropdown-menu" style="display:none;">
+                                <div class="ui-dropdown-menu">
                                     <div class="ui-dropdown-menu-inner">
-                                     <ul class="ui-dropdown-menu-box">
-                                         <li data-value="1900" class="ui-dropdown-option">1900年</li>
-                                         <li data-value="1901" class="ui-dropdown-option">1901年</li>
-                                         <li data-value="1902" class="ui-dropdown-option">1902年</li>
-                                     </ul>
+                                        <ul class="ui-dropdown-menu-box ">
+                                            <li data-value="1900" class="ui-dropdown-option">1900年</li>
+                                            <li data-value="1901" class="ui-dropdown-option">1901年</li>
+                                            <li data-value="1902" class="ui-dropdown-option">1902年</li>
+                                            <li data-value="1903" class="ui-dropdown-option">1903年</li>
+                                            <li data-value="1904" class="ui-dropdown-option">1904年</li>
+                                            <li data-value="1905" class="ui-dropdown-option ui-dropdown-selected">1905年</li>
+                                            <li data-value="1906" class="ui-dropdown-option">1906年</li>
+                                        </ul>
+                                    </div>
+                                    <div class="ui-scroll-ctrl-scroll ui-scroll-ctrl-scroll-hover" style="height: 180px;">
+                                        <div class="ui-scroll-axis" style="height: 180px;"></div>
+                                        <div class="ui-scroll-slider" style="display: block; height: 30px; top:20px;">
+                                            <!--<div class="ui-scroll-s-top"></div>
+                                            <div class="ui-scroll-s-bottom"></div>
+                                            <div class="ui-scroll-s-block"></div>-->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -45,11 +58,21 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="ui-dropdown-menu" style="display:none;">
+                                <div class="ui-dropdown-menu">
                                     <div class="ui-dropdown-menu-inner">
                                          <ul class="ui-dropdown-menu-box">
                                              <li data-value="1" class="ui-dropdown-option">1月</li>
+                                             <li data-value="2" class="ui-dropdown-option">2月</li>
+                                             <li data-value="3" class="ui-dropdown-option">3月</li>
+                                             <li data-value="4" class="ui-dropdown-option">4月</li>
+                                             <li data-value="5" class="ui-dropdown-option">5月</li>
                                              <li data-value="6" class="ui-dropdown-option ui-dropdown-selected" data-selected="selected">6月</li>
+                                             <li data-value="7" class="ui-dropdown-option">7月</li>
+                                             <li data-value="8" class="ui-dropdown-option">8月</li>
+                                             <li data-value="9" class="ui-dropdown-option">9月</li>
+                                             <li data-value="10" class="ui-dropdown-option">10月</li>
+                                             <li data-value="11" class="ui-dropdown-option">11月</li>
+                                             <li data-value="12" class="ui-dropdown-option">12月</li>
                                          </ul>
                                     </div>
                                 </div>
@@ -173,7 +196,7 @@
                             <tr>
                                 <td>
                                     <div class="ui-calendar-relative">
-                                        <a data-date="2015-6-15" class="ui-calendar-table-today" href="javascript:void(0);">
+                                        <a data-date="2015-6-15" class="" href="javascript:void(0);">
                                             <span class="ui-calendar-daynumber">15</span>
                                         </a>
                                     </div>
@@ -187,7 +210,7 @@
                                 </td>
                                 <td>
                                     <div class="ui-calendar-relative">
-                                        <a data-date="2015-6-17" class="" href="javascript:void(0);">
+                                        <a data-date="2015-6-17" class="ui-calendar-table-today" href="javascript:void(0);">
                                             <span class="ui-calendar-daynumber">17</span>
                                         </a>
                                     </div>
@@ -358,5 +381,14 @@
             </div>
         </div>
     </div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="script/jquery.tinyscrollbar.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var $scrollbar = $(".ui-scroll-ctrl-scroll");
+
+        $scrollbar.tinyscrollbar();
+    });
+</script>
 </body>
 </html>
