@@ -1,0 +1,472 @@
+/**
+    jquery.calendar.css
+*/
+
+.ui-calendar-box{
+    position: relative;
+    z-index: 1;
+    width: 940px;
+    margin: 0 auto;
+}
+
+.ui-calendar-left{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 410px;
+}
+
+.ui-calendar-right{
+    position: absolute;
+    left: 450px;
+    top: 0;
+    width: 500px;
+}
+
+.ui-calendar-info{
+    margin-bottom:20px;
+}
+.ui-calendar-info h2,
+.ui-calendar-info p{
+    font-size: 16px;
+}
+
+.ui-calendar-container{
+    border: solid 2px #57abff;
+    padding: 10px;
+}
+
+.ui-calendar-month-box, .ui-calendar-year-box{
+    float: left;
+    margin-right: 7px;
+}
+
+.ui-calendar-year-box{
+    width: 80px;
+}
+
+.ui-calendar-month-box{
+    padding: 0 22px;
+    position: relative;
+    width: 60px;
+    z-index: 1;
+}
+
+.ui-calendar-select-box{
+    float: left;
+    height: 26px;
+}
+
+.ui-calendar-back-today{
+    float: right;
+    width: 52px;
+}
+
+.ui-calendar-table-box{
+    float: left;
+    margin-top: 10px;
+}
+
+.ui-calendar-month-box .ui-dropdown-btn-icon-border{
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.ui-calendar .ui-dropdown .ui-dropdown-btn-icon{
+    padding-left: 0;
+}
+
+.ui-calendar-next-month, .ui-calendar-prev-month{
+    background: #fafafa none repeat scroll 0 0;
+    border-image: none;
+    border: solid 1px #999999;
+    border-bottom-color: #d8d8d8;
+    color: #7a7a7a;
+    display: block;
+    font-family: Simsun, Simhei, sans-serif;
+    font-weight: 700;
+    height: 24px;
+    line-height: 24px;
+    position: absolute;
+    text-align: center;
+    text-decoration: none;
+    top: 0;
+    width: 21px;
+    z-index: 205;
+}
+
+.ui-calendar-prev-month{
+    border-right-color: #d8d8d8;
+    left: 0;
+}
+
+.ui-calendar-next-month{
+    border-left-color: #d8d8d8;
+    right: 0;
+}
+
+.ui-calendar-next-month:hover, .ui-calendar-prev-month:hover{
+    border-color: #389cff;
+    border-left: 1px solid #389cff;
+    color: #389cff;
+}
+
+.ui-calendar-month-box .ui-dropdown-btn{
+}
+
+.ui-calendar-table{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 385px;
+}
+
+.ui-calendar-table td, .ui-calendar-table th{
+    border-top: 1px solid #c8cacc;
+    height: 54px;
+    padding: 0;
+    width: 55px;
+}
+
+.ui-calendar-relative{
+    position: relative;
+    width: 100%;
+}
+
+.ui-calendar-table th{
+    border-color: #55aaff;
+    font-size: 14px;
+    font-weight: 400;
+    height: 33px;
+    text-align:center;
+}
+
+.ui-calendar-table-six td{
+    height: 45px;
+}
+
+.ui-calendar-table td a{
+    border-right: 1px solid #ffffff;
+    display: block;
+    height: 33px;
+    line-height: 33px;
+    overflow: hidden;
+    padding: 11px 3px 10px;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    width: 48px;
+    outline: 0 none;
+}
+
+.ui-calendar-table{
+    cursor: pointer;
+}
+
+.ui-calendar-table-six td a{
+    padding: 6px 3px;
+}
+
+.ui-calendar-table td .ui-calendar-table-selected, .ui-calendar-table td a:hover{
+    border: 3px solid #ffbb00;
+    padding: 8px 0 7px;
+    width: 48px;
+}
+
+.ui-calendar-table-six td .ui-calendar-table-selected, .ui-calendar-table-six td a:hover{
+    padding: 3px 0;
+}
+
+.ui-calendar-daynumber{
+    color: #000000;
+    display: block;
+    font-size: 18px;
+    height: 22px;
+}
+
+.ui-calendar-table-almanac{
+    color: #999999;
+    display: block;
+    font-size: 12px;
+    line-height: 2.0;
+}
+
+.ui-calendar-table-festival .ui-calendar-table-almanac, .ui-calendar-table-weekend .ui-calendar-daynumber, th.ui-calendar-table-weekend{
+    color: #e02d2d;
+}
+
+.ui-calendar-table-other-month .ui-calendar-daynumber, .ui-calendar-table-other-month .ui-calendar-table-almanac{
+    color: #bfbfbf;
+}
+
+.ui-calendar-table-today .ui-calendar-daynumber, .ui-calendar-table-today .ui-calendar-table-almanac{
+    color: #ffffff;
+}
+
+.ui-calendar-table-today{
+    background: #ffbb00 none repeat scroll 0 0;
+}
+
+.ui-calendar-table-feast-sign,
+.ui-calendar-table-holiday-sign{
+    border: 1px solid #969799;
+    padding:1px;
+    color: #ff4433;
+    display: block;
+    height: 15px;
+    width: 15px;
+    line-height: 14px;
+    overflow: hidden;
+    position: absolute;
+    text-align: left;
+    text-indent: 1px;
+    top: 0;
+}
+
+.ui-calendar-table-holiday-sign{
+    left: 0;
+}
+
+.ui-calendar-table-feast-sign{
+    left: 20px;
+}
+
+.ui-calendar-table-work .ui-calendar-table-holiday-sign{
+    background: #969799 none repeat scroll 0 0;
+}
+
+.ui-calendar-table-other-month .ui-calendar-table-holiday-sign{
+    opacity: 0.5;
+}
+
+.ui-icon{
+    background: url("img/icons_a51b6ab6.png") no-repeat scroll 0 0 transparent;
+}
+
+.ui-icon{
+    display: inline-block;
+    font-style: normal;
+    height: 14px;
+    overflow: hidden;
+    vertical-align: text-bottom;
+    width: 14px;
+}
+
+.ui-icon-triangle-down{
+    background-position: -408px -144px;
+}
+
+.ui-btn, .ui-btn:visited{
+    color: #333333;
+}
+
+.ui-btn{
+    background-color: #f9f9f9;
+    border: 1px solid #d8d8d8;
+    cursor: pointer;
+    display: inline-block;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: normal;
+    height: 24px;
+    line-height: 25px;
+    margin: 0;
+    outline: 0 none;
+    overflow: hidden;
+    padding: 0 14px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.ui-btn:hover{
+    border-color: #388bff;
+}
+
+.ui-btn:active{
+    background-color: #f0f0f0;
+    border-color: #a2a6ab;
+    box-shadow: 1px 1px 1px #c7c7c7 inset;
+}
+
+a.ui-btn{
+    text-decoration: none;
+}
+
+.ui-btn .ui-icon{
+    margin-top: 5px;
+}
+
+.ui-btn .ui-icon{
+    float: left;
+}
+
+.ui-dropdown{
+    background-color: #ffffff;
+    display: inline-block;
+    font-size: 13px;
+    height: 26px;
+    line-height: 26px;
+    outline: 0 none;
+    position: relative;
+    vertical-align: middle;
+    width: 100%;
+    word-break: normal;
+    word-wrap: normal;
+}
+
+.ui-dropdown .ui-dropdown-btn-group{
+    border-color: #999999 #d8d8d8 #d8d8d8 #999999;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    height: 24px;
+    position: relative;
+}
+
+.ui-dropdown:hover .ui-dropdown-btn-group, .ui-dropdown-hover .ui-dropdown-btn-group{
+    box-shadow: 1px 1px 0 0 #d8d8d8 inset;
+}
+
+.ui-dropdown:hover .ui-dropdown-btn-icon, .ui-dropdown-hover .ui-dropdown-btn-icon{
+    box-shadow: 0 1px 0 0 #d8d8d8 inset;
+}
+
+.ui-dropdown:hover .ui-dropdown-btn-icon-border, .ui-dropdown-hover .ui-dropdown-btn-icon-border{
+    background-color: #f2f2f2;
+}
+
+.ui-dropdown .ui-dropdown-btn{
+    cursor: default;
+    height: 24px;
+    overflow: hidden;
+    padding-left: 10px;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.ui-dropdown .ui-dropdown-btn-icon{
+    background-color: #ffffff;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 1px 0 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 23px;
+}
+
+.ui-dropdown .ui-dropdown-btn-icon-border{
+    border-left: 1px solid #d9d9d9;
+    height: 24px;
+    text-align: center;
+    width: 23px;
+}
+
+.ui-dropdown .ui-icon-triangle-down{
+}
+
+.ui-dropdown .ui-dropdown-menu{
+    background: #ffffff none repeat scroll 0 0;
+    border: 1px solid #bbbbbb;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 100%;
+    width: 98%;
+    z-index: 100;
+}
+
+.ui-dropdown .ui-dropdown-menu-inner{
+    overflow: hidden;
+}
+
+.ui-dropdown .ui-dropdown-option{
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.ui-dropdown .ui-dropdown-selected{
+    background-color: #f5f5f5;
+}
+
+.ui-dropdown-common ul, .ui-dropdown-common li{
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+
+.ui-dropdown-common .ui-dropdown-option{
+    color: #333333;
+    cursor: pointer;
+    font-size: 12px;
+    height: 26px;
+    line-height: 26px;
+    padding-left: 10px;
+    white-space: nowrap;
+}
+
+.ui-dropdown-common .ui-dropdown-selected{
+    background-color: #f5f5f5;
+}
+
+.ui-dropdown-common .ui-dropdown-menu-group .ui-dropdown-option{
+    padding-left: 20px;
+}
+
+.ui-calendar-editor{
+    padding: 20px 0;
+}
+
+.ui-calendar-sign-feast,
+.ui-calendar-sign-holiday{
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    border: 1px solid #1f9bee;
+}
+
+.ui-calendar-sign-feast{
+    background-color: #55aaff;
+    color: #ffffff;
+}
+
+.ui-calendar-sign-holiday{
+    background-color: #ffffff;
+}
+
+.ui-calendar-feast-list, .ui-calendar-holiday-list{
+}
+
+.ui-calendar-feast-item, .ui-calendar-holiday-item{
+    height: 20px;
+    line-height: 22px;
+    border: 1px solid #1f9bee;
+    padding: 5px;
+    width: 80px;
+    margin: 0 10px 10px 0;
+    float: left;
+    display: inline;
+    position: relative;
+}
+
+.ui-calendar-feast-item span, .ui-calendar-holiday-item span{
+    font-size: 16px;
+}
+
+.ui-calendar-feast-item i, .ui-calendar-holiday-item i{
+    display: block;
+    font-style: normal;
+    font-size: 12px;
+    width: 15px;
+    line-height: 12px;
+    text-align: center;
+    height: 15px;
+    background-color: #d3d3d3;
+    color: #575757;
+    position: absolute;
+    right: 5px;
+    top: 7px;
+    cursor: pointer;
+}
