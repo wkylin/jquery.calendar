@@ -24,9 +24,8 @@
 }
 
 .ui-calendar-info{
-    margin-bottom: 20px;
+    margin-bottom:20px;
 }
-
 .ui-calendar-info h2,
 .ui-calendar-info p{
     font-size: 16px;
@@ -138,7 +137,7 @@
     font-size: 14px;
     font-weight: 400;
     height: 33px;
-    text-align: center;
+    text-align:center;
 }
 
 .ui-calendar-table-six td{
@@ -210,7 +209,7 @@
 .ui-calendar-table-feast-sign,
 .ui-calendar-table-holiday-sign{
     border: 1px solid #969799;
-    padding: 1px;
+    padding:1px;
     color: #ff4433;
     display: block;
     height: 15px;
