@@ -387,7 +387,9 @@
     <script type="text/javascript">
         $(document).ready(function () {
             var $scrollbar = $(".ui-dropdown-menu");
-            $scrollbar.wkCalendar();
+            $scrollbar.wkCalendar({
+                todayDate:new Date("2015-02-16")
+            });
         });
     </script>
 </body>
