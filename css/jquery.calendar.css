@@ -373,6 +373,7 @@ a.ui-btn{
     top: 100%;
     width: 98%;
     z-index: 100;
+    display:none;
 }
 
 .ui-dropdown .ui-dropdown-menu-inner{
