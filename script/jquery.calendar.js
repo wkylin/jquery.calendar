@@ -29,7 +29,7 @@
         var currentMonth = oDate.getMonth() + 1;
         var currentDay = oDate.getDate();
 
-        //ÅĞ¶ÏÔÂ·İµÄÌìÊı
+        //åˆ¤æ–­æœˆä»½çš„å¤©æ•°
         if (oMonth == 1 || oMonth == 3 || oMonth == 5 || oMonth == 7 || oMonth == 8 || oMonth == 10 || oMonth == 12) {
             dayNum = 31;
         }
@@ -54,13 +54,13 @@
             _init();
         };
         
-        //³õÊ¼»¯
+        //åˆå§‹åŒ–
         function _init(){
             
             console.log(dayNum);
         }
 
-        //ÅĞ¶ÏÊÇ·ñÈóÄê  
+        //åˆ¤æ–­æ˜¯å¦æ¶¦å¹´  
         function _isLeapYear(year) {
             if (year % 4 == 0 && year % 100 != 0) {
                 return true;
