@@ -239,10 +239,6 @@
 }
 
 .ui-icon{
-    background: url("img/icons_a51b6ab6.png") no-repeat scroll 0 0 transparent;
-}
-
-.ui-icon{
     display: inline-block;
     font-style: normal;
     height: 14px;
@@ -252,7 +248,16 @@
 }
 
 .ui-icon-triangle-down{
-    background-position: -408px -144px;
+    cursor: pointer;
+    display: block;
+    height: 0;
+    width: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #aaa;
+    position:absolute;
+    top:10px;
+    left:6px;
 }
 
 .ui-btn, .ui-btn:visited{
@@ -359,6 +364,7 @@ a.ui-btn{
     height: 24px;
     text-align: center;
     width: 23px;
+    position:relative;
 }
 
 .ui-dropdown .ui-icon-triangle-down{

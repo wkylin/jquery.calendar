@@ -162,7 +162,7 @@
             return tdHtml;
         }
         function _plusZero(str) {
-            return str < 10 ? '0' + str : str
+            return str < 10 ? '0' + str : str;
         }
 
         //初始化方法

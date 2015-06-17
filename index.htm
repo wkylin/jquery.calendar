@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery可编辑任务的日历插件 - 站长素材</title>
+<style>
+*{ margin:0; padding: 0;}
+.data-con{ position: relative; margin: 10px auto; width: 200px; border-right: 1px #d9d9d9 solid;border-bottom: 1px #d9d9d9 solid;}
+.data-header, .select-tit{ background-color: #4e84ff; color: #fff; line-height: 40px;}
+.prev-mon{ width: 20px; float: left; font-size: 16px; text-align: center; cursor: pointer;}
+.next-mon{ width: 20px; float: right; font-size: 16px; text-align:center; cursor: pointer;}
+.current-mon{ text-align: center;}
+.data-con table{ width: 100%;}
+.data-con th{border-left: 1px #d9d9d9 solid; border-bottom: 1px #d9d9d9 solid; line-height: 30px;}
+.data-con td{ height: 26px; text-align: center; border-top: 1px #d9d9d9 solid; border-left: 1px #d9d9d9 solid; color: #1800cc;}
+.data-con td.current{ background-color: #ff0000; color: #fff;}
+.data-con td:hover, .data-con td.hover{ background-color:#4e84ff; color: #fff; cursor: pointer;}
+.data-con td.disable{ color: #999; background-color: #fff;}
+.data-con td.disable:hover{ background-color:#fff; color: #999; cursor:default;}
+
+
+.select-box{position: absolute; top: 0; right: -250px; width: 240px; border:1px #d9d9d9 solid;}
+.select-box li{ list-style: none; padding: 10px; border-bottom: 1px #d9d9d9 solid;}
+.day-time{ display: inline-block; border:1px #4e84ff solid;text-align: center; line-height: 25px;}
+.weekday{ border-top: 1px #4e84ff solid; background-color: #4e84ff; color: #fff;}
+.select{ display: inline-block; float: right;}
+.select div{ display: inline-block;}
+.select-btn{ padding: 3px 5px; margin-top: 15px;}
+
+.select-tit{ text-align: center;}
+.select-box .close{ width: 20px; height: 20px; float: right; border:1px #fff solid; border-radius: 50%; line-height: 22px; margin-top: 9px; margin-right: 10px; cursor: pointer; }
+</style>
+</head>
+
+<body>
+<div class="data-con" id="data-con"></div> 
+<script src="script/jquery-latest.min.js"></script>
+<script src="script/date.js"></script>
+</div>
+</body>
+</html>
