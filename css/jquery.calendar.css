@@ -9,6 +9,10 @@
     margin: 0 auto;
 }
 
+.ui-calendar-box a:hover{
+    text-decoration: none;
+}
+
 .ui-calendar-left{
     position: absolute;
     left: 0;
@@ -34,6 +38,7 @@
 .ui-calendar-container{
     border: solid 2px #57abff;
     padding: 10px;
+    height:390px;
 }
 
 .ui-calendar-month-box, .ui-calendar-year-box{
