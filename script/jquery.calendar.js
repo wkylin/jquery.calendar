@@ -13,12 +13,20 @@
 
     var pluginName = "wkCalendar",
         defaults = {
-            todayDate: new Date()
+            todayDate: new Date(),
+            beginYear: 2015,
+            yearIncrement:20,
+            beginMonth:7,
+            monthIncrement:12
         };
 
     function Plugin($container, options) {
         this.options = $.extend({}, defaults, options);
         var self = this;
+        var beginYear = this.options.beginYear;
+        var yearIncrement = this.options.yearIncrement;
+        var beginMonth = this.options.beginMonth;
+        var monthIncrement = this.options.monthIncrement>12 ? 12 : this.options.monthIncrement;
         var oDate = this.options.todayDate;
         var dayNum = 0;
         var oYear = oDate.getFullYear();
@@ -43,8 +51,10 @@
         var $dropdown = $container.find(".ui-calendar-year-box .ui-dropdown,.ui-calendar-month-box .ui-dropdown");
         var $dropdownGroup = $dropdown.find(".ui-dropdown-btn-group");
         var $dropdownMenu = $dropdown.find(".ui-dropdown-menu");
-        var $dropdownOption = $dropdown.find(".ui-dropdown-option");
+        var $dropdownOption;
 
+        var $dropDownYearMenu = $container.find(".ui-calendar-year-box .ui-dropdown-menu-box");
+        var $dropDownMonthMenu = $container.find(".ui-calendar-month-box .ui-dropdown-menu-box");
 
         function initialize() {
             self.update();
@@ -57,6 +67,9 @@
 
         //初始化
         function init() {
+
+            renderDropdownYear();
+            renderDropdownMonth();
             renderTbody();
             showDate(oYear, oMonth, oDate);
             nextMonth();
@@ -64,8 +77,7 @@
             backToday();
             dropDown();
         }
-
-
+        
         //下拉菜单选择日期
         function dropDown(){
             $dropdownGroup.hover(function () {
@@ -96,7 +108,7 @@
             $dropdownOption.on("click", function () {
                 var type = $(this).data("type");
                 var value = $(this).data("value");
-                $dropdownOption.removeClass("ui-dropdown-selected");
+                $(this).siblings().removeClass("ui-dropdown-selected");
                 $(this).addClass("ui-dropdown-selected");
                 var dropdownBtnSpan = $(this).parents(".ui-dropdown").find(".ui-dropdown-btn span");
                 dropdownBtnSpan.text($(this).data("value"));
@@ -124,6 +136,9 @@
 
                 oYear = curDates.getFullYear();
                 oMonth = curDates.getMonth() + 1;
+
+                dropdownSelected();
+
                 showDate(curDates.getFullYear(), curDates.getMonth() + 1, curDates);
             });
         }
@@ -136,7 +151,7 @@
                     oMonth = 1;
                     ++oYear;
                 }
-
+                dropdownSelected();
                 showDate(oYear, oMonth, oDate);
             })
         }
@@ -149,6 +164,7 @@
                     oMonth = 12;
                     --oYear;
                 }
+                dropdownSelected();
                 showDate(oYear, oMonth, oDate);
             });
 
@@ -168,6 +184,37 @@
             }
         }
 
+        
+        //渲染年份
+        function renderDropdownYear(){
+            var yearList = [];
+            for(var i=0; i< (yearIncrement+1); i++){
+                var yearLi='<li data-value="'+ (beginYear+i) +'" data-type="year" class="ui-dropdown-option">'+ (beginYear + i)+'年</li>';
+                yearList.push(yearLi);
+            }
+            $(yearList.join("")).appendTo($dropDownYearMenu);
+            $dropdownOption = $dropdown.find(".ui-dropdown-option");
+            dropdownSelected();
+        }
+        
+        //渲染月份
+        function renderDropdownMonth() {
+            
+            var monthList = [];
+            
+            if(monthIncrement+ beginMonth>12){
+                monthIncrement = 12- beginMonth;
+            }
+            for (var i = 0; i < monthIncrement+1; i++) {
+                var monthLi = '<li data-value="' + (beginMonth + i) + '" data-type="month" class="ui-dropdown-option">' + (beginMonth + i) + '月</li>';
+                monthList.push(monthLi);
+            }
+            $(monthList.join("")).appendTo($dropDownMonthMenu);
+            $dropdownOption = $dropdown.find(".ui-dropdown-option");
+            dropdownSelected();
+        }
+        
+        
         //渲染日期表格
         function renderTbody() {
             for (var j = 0; j < 6; j++) {
@@ -266,6 +313,24 @@
             return tdHtml;
         }
 
+        //显示选中的年月
+        function dropdownSelected(){
+            
+            $dropdownOption.removeClass("ui-dropdown-selected");
+            
+            $dropdownOption.each(function (i, item) {
+
+                if ($(item).data("type") == "year") {
+                    if ($(item).data("value") == oYear) {
+                        $(item).addClass("ui-dropdown-selected");
+                    }
+                } else {
+                    if ($(item).data("value") == oMonth) {
+                        $(item).addClass("ui-dropdown-selected");
+                    }
+                }
+            });
+        }
         function plusZero(str) {
             return str < 10 ? '0' + str : str;
         }
