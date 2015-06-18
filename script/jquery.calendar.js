@@ -30,8 +30,6 @@
         var oDay = oDate.getDate();
         var maxYear= lastArrItem();
 
-        console.log(maxYear);
-
         //日期表格
         var $table = $container.find(".ui-calendar-table");
         var $tBody = $table.find("tbody");
@@ -61,19 +59,18 @@
 
         this.update = function () {
             init();
-        };
-
-        //初始化
-        function init() {
-
-            renderDropdownYear();
-            renderDropdownMonth();
-            renderTbody();
-            showDate(oYear, oMonth, oDate);
             nextMonth();
             prevMonth();
             backToday();
             dropDown();
+        };
+
+        //初始化
+        function init() {
+            renderDropdownYear();
+            renderDropdownMonth();
+            renderTbody();
+            showDate(oYear, oMonth, oDate);
         }
 
         //下拉菜单选择日期
@@ -334,10 +331,12 @@
             });
         }
 
+        //小于10的补前导0
         function plusZero(str) {
             return str < 10 ? '0' + str : str;
         }
 
+        //求最大年份
         function lastArrItem(){
             var arrList=[];
             for (var i = 0; i < (yearIncrement + 1); i++) {
@@ -345,6 +344,7 @@
             }
             return arrList[arrList.length-1];
         }
+        
         //初始化方法
         return initialize();
     }
