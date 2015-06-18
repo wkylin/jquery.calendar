@@ -15,9 +15,7 @@
         defaults = {
             todayDate: new Date(),
             beginYear: 2015,
-            yearIncrement:20,
-            beginMonth:7,
-            monthIncrement:12
+            yearIncrement: 20
         };
 
     function Plugin($container, options) {
@@ -25,8 +23,6 @@
         var self = this;
         var beginYear = this.options.beginYear;
         var yearIncrement = this.options.yearIncrement;
-        var beginMonth = this.options.beginMonth;
-        var monthIncrement = this.options.monthIncrement>12 ? 12 : this.options.monthIncrement;
         var oDate = this.options.todayDate;
         var dayNum = 0;
         var oYear = oDate.getFullYear();
@@ -77,9 +73,9 @@
             backToday();
             dropDown();
         }
-        
+
         //下拉菜单选择日期
-        function dropDown(){
+        function dropDown() {
             $dropdownGroup.hover(function () {
                 $(this).parent(".ui-dropdown").addClass("ui-dropdown-hover");
             }, function () {
@@ -112,11 +108,11 @@
                 $(this).addClass("ui-dropdown-selected");
                 var dropdownBtnSpan = $(this).parents(".ui-dropdown").find(".ui-dropdown-btn span");
                 dropdownBtnSpan.text($(this).data("value"));
-               
-                if(type == "year"){
+
+                if (type == "year") {
                     oYear = value;
-                    oMonth = $month.text(); 
-                }else{
+                    oMonth = $month.text();
+                } else {
                     oYear = $year.text();
                     oMonth = value;
                 }
@@ -127,7 +123,7 @@
                 $dropdownMenu.hide();
             });
         }
-        
+
         // 返回今天
         function backToday() {
             $backToday.on("click", function () {
@@ -159,6 +155,7 @@
         //上一个月份
         function prevMonth() {
             $prevMonth.on("click", function () {
+
                 --oMonth;
                 if (oMonth < 1) {
                     oMonth = 12;
@@ -184,37 +181,32 @@
             }
         }
 
-        
+
         //渲染年份
-        function renderDropdownYear(){
+        function renderDropdownYear() {
             var yearList = [];
-            for(var i=0; i< (yearIncrement+1); i++){
-                var yearLi='<li data-value="'+ (beginYear+i) +'" data-type="year" class="ui-dropdown-option">'+ (beginYear + i)+'年</li>';
+            for (var i = 0; i < (yearIncrement + 1); i++) {
+                var yearLi = '<li data-value="' + (beginYear + i) + '" data-type="year" class="ui-dropdown-option">' + (beginYear + i) + '年</li>';
                 yearList.push(yearLi);
             }
             $(yearList.join("")).appendTo($dropDownYearMenu);
             $dropdownOption = $dropdown.find(".ui-dropdown-option");
             dropdownSelected();
         }
-        
+
         //渲染月份
         function renderDropdownMonth() {
-            
             var monthList = [];
-            
-            if(monthIncrement+ beginMonth>12){
-                monthIncrement = 12- beginMonth;
-            }
-            for (var i = 0; i < monthIncrement+1; i++) {
-                var monthLi = '<li data-value="' + (beginMonth + i) + '" data-type="month" class="ui-dropdown-option">' + (beginMonth + i) + '月</li>';
+            for (var i = 1; i <= 12; i++) {
+                var monthLi = '<li data-value="' + i + '" data-type="month" class="ui-dropdown-option">' + i + '月</li>';
                 monthList.push(monthLi);
             }
             $(monthList.join("")).appendTo($dropDownMonthMenu);
             $dropdownOption = $dropdown.find(".ui-dropdown-option");
             dropdownSelected();
         }
-        
-        
+
+
         //渲染日期表格
         function renderTbody() {
             for (var j = 0; j < 6; j++) {
@@ -314,10 +306,10 @@
         }
 
         //显示选中的年月
-        function dropdownSelected(){
-            
+        function dropdownSelected() {
+
             $dropdownOption.removeClass("ui-dropdown-selected");
-            
+
             $dropdownOption.each(function (i, item) {
 
                 if ($(item).data("type") == "year") {
@@ -331,6 +323,7 @@
                 }
             });
         }
+
         function plusZero(str) {
             return str < 10 ? '0' + str : str;
         }
