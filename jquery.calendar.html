@@ -14,9 +14,9 @@
                 <div class="ui-calendar-container fn-clear">
                     <div class="ui-calendar-select-box">
                         <div class="ui-calendar-year-box">
-                            <div tabindex="0" class="ui-dropdown ui-dropdown-common ui-dropdown-hover">
+                            <div tabindex="0" class="ui-dropdown ui-dropdown-common">
                                 <div class="ui-dropdown-btn-group">
-                                    <div class="ui-dropdown-btn">2015年</div>
+                                    <div class="ui-dropdown-btn"><span>2015</span>年</div>
                                     <div class="ui-dropdown-btn-icon">
                                         <div class="ui-dropdown-btn-icon-border">
                                             <i class="ui-icon ui-icon-triangle-down"></i>
@@ -51,7 +51,7 @@
                             <a class="ui-calendar-next-month" href="javascript:void(0);">&gt;</a>
                             <div tabindex="0" class="ui-dropdown ui-dropdown-common">
                                 <div class="ui-dropdown-btn-group">
-                                    <div class="ui-dropdown-btn">6月</div>
+                                    <div class="ui-dropdown-btn"><span>6</span>月</div>
                                     <div class="ui-dropdown-btn-icon">
                                         <div class="ui-dropdown-btn-icon-border">
                                             <i class="ui-icon ui-icon-triangle-down"></i>
@@ -121,12 +121,15 @@
     </div>
     <script type="text/javascript" src="script/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="script/jquery.calendar.js"></script>
+    <script type="text/javascript" src="script/jquery.dropdown.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var $scrollbar = $(".ui-calendar-box");
             $scrollbar.wkCalendar({
                 todayDate:new Date()
             });
+            
+            
         });
     </script>
 </body>

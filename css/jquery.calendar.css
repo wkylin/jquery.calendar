@@ -348,8 +348,7 @@ a.ui-btn{
     cursor: default;
     height: 24px;
     overflow: hidden;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 0 10px 0 5px;
     white-space: nowrap;
 }
 
@@ -397,7 +396,8 @@ a.ui-btn{
     cursor: pointer;
 }
 
-.ui-dropdown .ui-dropdown-selected{
+.ui-dropdown .ui-dropdown-selected,
+.ui-dropdown .ui-dropdown-hover{
     background-color: #f5f5f5;
 }
 

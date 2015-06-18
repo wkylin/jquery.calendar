@@ -1,7 +1,7 @@
 ;
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['jquery'], factory);
+        define(['jquery.dropdown'], factory);
     }
     else if (typeof exports === 'object') {
         module.exports = factory(require("jquery"));
@@ -26,24 +26,22 @@
         var oDay = oDate.getDate();
 
 
-        //生成表格 tbody
+        //日期表格
         var $table = $container.find(".ui-calendar-table");
         var $tBody = $table.find("tbody");
-        var $year = $container.find(".ui-calendar-year-box .ui-dropdown-btn");
-        var $month = $container.find(".ui-calendar-month-box .ui-dropdown-btn");
+        var $year = $container.find(".ui-calendar-year-box .ui-dropdown-btn span");
+        var $month = $container.find(".ui-calendar-month-box .ui-dropdown-btn span");
         var $nextMonth = $container.find(".ui-calendar-next-month");
         var $prevMonth = $container.find(".ui-calendar-prev-month");
         var $backToday = $container.find(".ui-calendar-back-today");
 
+        var $dropdownBtn = $container.find(".ui-dropdown");
+      
         function initialize() {
-
             self.update();
-
             return self;
         }
 
-        
-        
         this.update = function () {
             init();
         };
@@ -51,27 +49,29 @@
         //初始化
         function init() {
             renderTbody();
-            showDate(oYear, oMonth,oDate);
+            showDate(oYear, oMonth, oDate);
             nextMonth();
             prevMonth();
-            backToday()
+            backToday();
+            $dropdownBtn.wkDropdown();  
         }
 
-       
+        
         // 返回今天
-        function backToday(){
-            $backToday.on("click",function(){
-                var dateStr= $(this).data("today");
+        function backToday() {
+            $backToday.on("click", function () {
+                var dateStr = $(this).data("today");
                 var curDates = new Date(dateStr);
-                
+
                 oYear = curDates.getFullYear();
-                oMonth = curDates.getMonth()+1;
-                showDate(curDates.getFullYear(), curDates.getMonth()+1, curDates);
+                oMonth = curDates.getMonth() + 1;
+                showDate(curDates.getFullYear(), curDates.getMonth() + 1, curDates);
             });
         }
+
         //下一个月份
-        function nextMonth(){
-            $nextMonth.on("click",function(){
+        function nextMonth() {
+            $nextMonth.on("click", function () {
                 ++oMonth;
                 if (oMonth > 12) {
                     oMonth = 1;
@@ -81,20 +81,20 @@
                 showDate(oYear, oMonth, oDate);
             })
         }
-        
+
         //上一个月份
-        function prevMonth(){
+        function prevMonth() {
             $prevMonth.on("click", function () {
                 --oMonth;
                 if (oMonth < 1) {
                     oMonth = 12;
                     --oYear;
                 }
-                showDate(oYear, oMonth,oDate);
+                showDate(oYear, oMonth, oDate);
             });
-            
+
         }
-        
+
         //判断是否润年  
         function isLeapYear(year) {
             if (year % 4 == 0 && year % 100 != 0) {
@@ -121,8 +121,8 @@
             $table.append($tBody);
         }
 
-        function showDate(year, month,curDate) {
-            
+        function showDate(year, month, curDate) {
+
             $year.text(year);
             $month.text(month);
 
@@ -139,17 +139,17 @@
             else {
                 dayNum = 28;
             }
-            
-            
+
+
             //设置当月第一天的星期数
             var aTd = $table.find('td');
             $(aTd).html('');
 
             curDate.setFullYear(year);
-            curDate.setMonth(month-1);
+            curDate.setMonth(month - 1);
             curDate.setDate(1);
 
-  
+
             switch (curDate.getDay()) {
                 case 0:
                     for (var i = 0; i < dayNum; i++) {
@@ -190,7 +190,7 @@
         }
 
 
-        function showTd(key){
+        function showTd(key) {
             var dateStr = oYear + '-' + plusZero(oMonth) + '-' + plusZero(1 + key);
             var weekend = new Date(dateStr);
             var tdHtml = '<div class="ui-calendar-relative"><a data-date="' + dateStr + '" class="';
@@ -203,6 +203,7 @@
             tdHtml += '" href="javascript:void(0);"><span class="ui-calendar-daynumber">' + (key + 1) + '</span></a></div>';
             return tdHtml;
         }
+
         function plusZero(str) {
             return str < 10 ? '0' + str : str;
         }
