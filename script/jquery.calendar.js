@@ -35,8 +35,17 @@
         var $prevMonth = $container.find(".ui-calendar-prev-month");
         var $backToday = $container.find(".ui-calendar-back-today");
 
-        var $dropdownBtn = $container.find(".ui-dropdown");
-      
+        /**
+         * 下拉选择菜单
+         * year
+         * month
+         */
+        var $dropdown = $container.find(".ui-calendar-year-box .ui-dropdown,.ui-calendar-month-box .ui-dropdown");
+        var $dropdownGroup = $dropdown.find(".ui-dropdown-btn-group");
+        var $dropdownMenu = $dropdown.find(".ui-dropdown-menu");
+        var $dropdownOption = $dropdown.find(".ui-dropdown-option");
+
+
         function initialize() {
             self.update();
             return self;
@@ -53,9 +62,59 @@
             nextMonth();
             prevMonth();
             backToday();
-            $dropdownBtn.wkDropdown();  
+            dropDown();
         }
 
+
+        //下拉菜单选择日期
+        function dropDown(){
+            $dropdownGroup.hover(function () {
+                $(this).parent(".ui-dropdown").addClass("ui-dropdown-hover");
+            }, function () {
+                $(this).parent(".ui-dropdown").removeClass("ui-dropdown-hover");
+            });
+
+            $dropdownGroup.on("click", function () {
+                var $menu = $(this).next(".ui-dropdown-menu");
+                if ($menu.is(":visible")) {
+                    $menu.hide();
+                    return false;
+                } else {
+                    $(".ui-dropdown-menu").hide();
+                    $menu.show();
+                    return false;
+                }
+            });
+
+            $dropdownOption.hover(function () {
+                $dropdownOption.removeClass("ui-dropdown-hover");
+                $(this).addClass("ui-dropdown-hover");
+            }, function () {
+                $dropdownOption.removeClass("ui-dropdown-hover");
+            });
+
+            $dropdownOption.on("click", function () {
+                var type = $(this).data("type");
+                var value = $(this).data("value");
+                $dropdownOption.removeClass("ui-dropdown-selected");
+                $(this).addClass("ui-dropdown-selected");
+                var dropdownBtnSpan = $(this).parents(".ui-dropdown").find(".ui-dropdown-btn span");
+                dropdownBtnSpan.text($(this).data("value"));
+               
+                if(type == "year"){
+                    oYear = value;
+                    oMonth = $month.text(); 
+                }else{
+                    oYear = $year.text();
+                    oMonth = value;
+                }
+                showDate(oYear, oMonth, oDate);
+            });
+
+            $(document).on("click", function () {
+                $dropdownMenu.hide();
+            });
+        }
         
         // 返回今天
         function backToday() {
@@ -109,6 +168,7 @@
             }
         }
 
+        //渲染日期表格
         function renderTbody() {
             for (var j = 0; j < 6; j++) {
                 var oTr = document.createElement('tr');
@@ -121,6 +181,7 @@
             $table.append($tBody);
         }
 
+        //渲染日期表格数据
         function showDate(year, month, curDate) {
 
             $year.text(year);
@@ -190,6 +251,7 @@
         }
 
 
+        //日期显示
         function showTd(key) {
             var dateStr = oYear + '-' + plusZero(oMonth) + '-' + plusZero(1 + key);
             var weekend = new Date(dateStr);

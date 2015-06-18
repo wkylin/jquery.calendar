@@ -26,13 +26,13 @@
                                 <div class="ui-dropdown-menu">
                                     <div class="ui-dropdown-menu-inner" >
                                         <ul class="ui-dropdown-menu-box ">
-                                            <li data-value="1900" class="ui-dropdown-option">1900年</li>
-                                            <li data-value="1901" class="ui-dropdown-option">1901年</li>
-                                            <li data-value="1902" class="ui-dropdown-option">1902年</li>
-                                            <li data-value="1903" class="ui-dropdown-option">1903年</li>
-                                            <li data-value="1904" class="ui-dropdown-option">1904年</li>
-                                            <li data-value="1905" class="ui-dropdown-option ui-dropdown-selected">1905年</li>
-                                            <li data-value="1906" class="ui-dropdown-option">1906年</li>
+                                            <li data-value="2015" data-type="year" class="ui-dropdown-option">2015年</li>
+                                            <li data-value="2016" data-type="year" class="ui-dropdown-option">2016年</li>
+                                            <li data-value="2017" data-type="year" class="ui-dropdown-option">2017年</li>
+                                            <li data-value="2018" data-type="year" class="ui-dropdown-option">2018年</li>
+                                            <li data-value="2019" data-type="year" class="ui-dropdown-option">2019年</li>
+                                            <li data-value="2020" data-type="year" class="ui-dropdown-option">2020年</li>
+                                            <li data-value="2021" data-type="year" class="ui-dropdown-option">2021年</li>
                                         </ul>
                                     </div>
                                     <div class="ui-scroll-ctrl-scroll ui-scroll-ctrl-scroll-hover" style="height: 180px;">
@@ -61,18 +61,18 @@
                                 <div class="ui-dropdown-menu" >
                                     <div class="ui-dropdown-menu-inner" >
                                          <ul class="ui-dropdown-menu-box">
-                                             <li data-value="1" class="ui-dropdown-option">1月</li>
-                                             <li data-value="2" class="ui-dropdown-option">2月</li>
-                                             <li data-value="3" class="ui-dropdown-option">3月</li>
-                                             <li data-value="4" class="ui-dropdown-option">4月</li>
-                                             <li data-value="5" class="ui-dropdown-option">5月</li>
-                                             <li data-value="6" class="ui-dropdown-option ui-dropdown-selected" data-selected="selected">6月</li>
-                                             <li data-value="7" class="ui-dropdown-option">7月</li>
-                                             <li data-value="8" class="ui-dropdown-option">8月</li>
-                                             <li data-value="9" class="ui-dropdown-option">9月</li>
-                                             <li data-value="10" class="ui-dropdown-option">10月</li>
-                                             <li data-value="11" class="ui-dropdown-option">11月</li>
-                                             <li data-value="12" class="ui-dropdown-option">12月</li>
+                                             <li data-value="1" data-type="month" class="ui-dropdown-option">1月</li>
+                                             <li data-value="2" data-type="month" class="ui-dropdown-option">2月</li>
+                                             <li data-value="3" data-type="month" class="ui-dropdown-option">3月</li>
+                                             <li data-value="4" data-type="month" class="ui-dropdown-option">4月</li>
+                                             <li data-value="5" data-type="month" class="ui-dropdown-option">5月</li>
+                                             <li data-value="6" data-type="month" class="ui-dropdown-option">6月</li>
+                                             <li data-value="7" data-type="month" class="ui-dropdown-option">7月</li>
+                                             <li data-value="8" data-type="month" class="ui-dropdown-option">8月</li>
+                                             <li data-value="9" data-type="month" class="ui-dropdown-option">9月</li>
+                                             <li data-value="10" data-type="month" class="ui-dropdown-option">10月</li>
+                                             <li data-value="11" data-type="month" class="ui-dropdown-option">11月</li>
+                                             <li data-value="12" data-type="month" class="ui-dropdown-option">12月</li>
                                          </ul>
                                     </div>
                                 </div>
@@ -126,10 +126,8 @@
         $(document).ready(function () {
             var $scrollbar = $(".ui-calendar-box");
             $scrollbar.wkCalendar({
-                todayDate:new Date()
+                todayDate:new Date("2015-10-20")
             });
-            
-            
         });
     </script>
 </body>

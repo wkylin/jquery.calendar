@@ -39,49 +39,45 @@
         this.update = function () {
             init();
         };
-
-        $dropdownGroup.hover(function () {
-            $container.addClass("ui-dropdown-hover");
-        }, function () {
-            $container.removeClass("ui-dropdown-hover");
-        });
-        
-        $dropdownGroup.on("click",function(){
-            if($dropdownMenu.is(":visible")){
-                $dropdownMenu.hide();
-                return false;
-            }else{
-                $(".ui-dropdown-menu").hide();
-                $dropdownMenu.show();
-                
-                return false;
-            }
-        });
-
-        $dropdownOption.hover(function(){
-            $dropdownOption.removeClass("ui-dropdown-hover");
-            $(this).addClass("ui-dropdown-hover");
-        },function(){
-            $dropdownOption.removeClass("ui-dropdown-hover");
-        });
-
-        $dropdownOption.on("click",function(){
-            $dropdownOption.removeClass("ui-dropdown-selected");
-            $(this).addClass("ui-dropdown-selected");
-            $dropdownSpan.text($(this).data("value"));
-        });
-        
-        $(document).on("click",function(){
-            $dropdownMenu.hide();
-        });
+       
         
         //初始化
         function init() {
-           
-        }
+            $dropdownGroup.hover(function () {
+                $container.addClass("ui-dropdown-hover");
+            }, function () {
+                $container.removeClass("ui-dropdown-hover");
+            });
 
-       
-       
+            $dropdownGroup.on("click", function () {
+                if ($dropdownMenu.is(":visible")) {
+                    $dropdownMenu.hide();
+                    return false;
+                } else {
+                    $(".ui-dropdown-menu").hide();
+                    $dropdownMenu.show();
+
+                    return false;
+                }
+            });
+
+            $dropdownOption.hover(function () {
+                $dropdownOption.removeClass("ui-dropdown-hover");
+                $(this).addClass("ui-dropdown-hover");
+            }, function () {
+                $dropdownOption.removeClass("ui-dropdown-hover");
+            });
+
+            $dropdownOption.on("click", function () {
+                $dropdownOption.removeClass("ui-dropdown-selected");
+                $(this).addClass("ui-dropdown-selected");
+                $dropdownSpan.text($(this).data("value"));
+            });
+
+            $(document).on("click", function () {
+                $dropdownMenu.hide();
+            });
+        }
 
         //初始化方法
         return initialize();

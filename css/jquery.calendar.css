@@ -398,7 +398,7 @@ a.ui-btn{
 
 .ui-dropdown .ui-dropdown-selected,
 .ui-dropdown .ui-dropdown-hover{
-    background-color: #f5f5f5;
+    background-color: #d3d3d3;
 }
 
 .ui-dropdown-common ul, .ui-dropdown-common li{
@@ -415,10 +415,6 @@ a.ui-btn{
     line-height: 26px;
     padding-left: 10px;
     white-space: nowrap;
-}
-
-.ui-dropdown-common .ui-dropdown-selected{
-    background-color: #f5f5f5;
 }
 
 .ui-dropdown-common .ui-dropdown-menu-group .ui-dropdown-option{
