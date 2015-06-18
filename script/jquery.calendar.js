@@ -28,7 +28,9 @@
         var oYear = oDate.getFullYear();
         var oMonth = oDate.getMonth() + 1;
         var oDay = oDate.getDate();
+        var maxYear= lastArrItem();
 
+        console.log(maxYear);
 
         //日期表格
         var $table = $container.find(".ui-calendar-table");
@@ -146,6 +148,10 @@
                 if (oMonth > 12) {
                     oMonth = 1;
                     ++oYear;
+                    if(oYear> maxYear){ //不能大于最大年份 12月份
+                        oYear = maxYear;
+                        oMonth = 12;
+                    }
                 }
                 dropdownSelected();
                 showDate(oYear, oMonth, oDate);
@@ -154,17 +160,21 @@
 
         //上一个月份
         function prevMonth() {
-            $prevMonth.on("click", function () {
 
-                --oMonth;
-                if (oMonth < 1) {
-                    oMonth = 12;
-                    --oYear;
-                }
+            $prevMonth.on("click", function () {
+                    --oMonth;
+                    if (oMonth < 1) {
+                        oMonth = 12;
+                        --oYear;
+                        if(oYear < beginYear){ //不能小于最小年份 1月份
+                            oYear= beginYear;
+                            oMonth=1;
+                        }
+                    }
                 dropdownSelected();
                 showDate(oYear, oMonth, oDate);
             });
-
+          
         }
 
         //判断是否润年  
@@ -328,6 +338,13 @@
             return str < 10 ? '0' + str : str;
         }
 
+        function lastArrItem(){
+            var arrList=[];
+            for (var i = 0; i < (yearIncrement + 1); i++) {
+                arrList.push(beginYear+i);
+            }
+            return arrList[arrList.length-1];
+        }
         //初始化方法
         return initialize();
     }
