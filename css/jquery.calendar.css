@@ -110,7 +110,8 @@
     right: 0;
 }
 
-.ui-calendar-next-month:hover, .ui-calendar-prev-month:hover{
+.ui-calendar-next-month:hover,
+.ui-calendar-prev-month:hover{
     border-color: #389cff;
     border-left: 1px solid #389cff;
     color: #389cff;
@@ -160,10 +161,37 @@
     outline: 0 none;
 }
 
-
-.ui-calendar-table td .ui-calendar-table-selected, .ui-calendar-table td a:hover{
-    border: 3px solid #d4d4d4;
+.ui-calendar-table td a:hover{
+    border: 3px solid #ffffff;
+    background-color: #d4d4d4;
 }
+
+.ui-calendar-table td .ui-calendar-table-selected{
+    border: 3px solid #ffffff;
+    background: url("img/tally.png") right bottom no-repeat transparent;
+}
+
+.ui-calendar-table-festival .ui-calendar-table-almanac, 
+.ui-calendar-table-weekend .ui-calendar-daynumber, 
+th.ui-calendar-table-weekend{
+    color: #e02d2d;
+}
+
+.ui-calendar-table-other-month .ui-calendar-daynumber, 
+.ui-calendar-table-other-month .ui-calendar-table-almanac{
+    color: #bfbfbf;
+}
+
+.ui-calendar-table-today .ui-calendar-daynumber,
+.ui-calendar-table-today .ui-calendar-table-almanac{
+    color: #ffffff;
+}
+
+.ui-calendar-table td .ui-calendar-table-today{
+    background-color: #ffbb00;
+}
+
+
 
 
 .ui-calendar-daynumber{
@@ -185,21 +213,6 @@
     height:30px;
 }
 
-.ui-calendar-table-festival .ui-calendar-table-almanac, .ui-calendar-table-weekend .ui-calendar-daynumber, th.ui-calendar-table-weekend{
-    color: #e02d2d;
-}
-
-.ui-calendar-table-other-month .ui-calendar-daynumber, .ui-calendar-table-other-month .ui-calendar-table-almanac{
-    color: #bfbfbf;
-}
-
-.ui-calendar-table-today .ui-calendar-daynumber, .ui-calendar-table-today .ui-calendar-table-almanac{
-    color: #ffffff;
-}
-
-.ui-calendar-table-today{
-    background: #ffbb00 none repeat scroll 0 0;
-}
 
 .ui-calendar-table-feast-sign,
 .ui-calendar-table-holiday-sign{
@@ -322,15 +335,18 @@ a.ui-btn{
     position: relative;
 }
 
-.ui-dropdown:hover .ui-dropdown-btn-group, .ui-dropdown-hover .ui-dropdown-btn-group{
+.ui-dropdown:hover .ui-dropdown-btn-group, 
+.ui-dropdown-hover .ui-dropdown-btn-group{
     box-shadow: 1px 1px 0 0 #d8d8d8 inset;
 }
 
-.ui-dropdown:hover .ui-dropdown-btn-icon, .ui-dropdown-hover .ui-dropdown-btn-icon{
+.ui-dropdown:hover .ui-dropdown-btn-icon,
+.ui-dropdown-hover .ui-dropdown-btn-icon{
     box-shadow: 0 1px 0 0 #d8d8d8 inset;
 }
 
-.ui-dropdown:hover .ui-dropdown-btn-icon-border, .ui-dropdown-hover .ui-dropdown-btn-icon-border{
+.ui-dropdown:hover .ui-dropdown-btn-icon-border,
+.ui-dropdown-hover .ui-dropdown-btn-icon-border{
     background-color: #f2f2f2;
 }
 
@@ -435,10 +451,12 @@ a.ui-btn{
     background-color: #ffffff;
 }
 
-.ui-calendar-feast-list, .ui-calendar-holiday-list{
+.ui-calendar-feast-list,
+.ui-calendar-holiday-list{
 }
 
-.ui-calendar-feast-item, .ui-calendar-holiday-item{
+.ui-calendar-feast-item,
+.ui-calendar-holiday-item{
     height: 20px;
     line-height: 22px;
     border: 1px solid #1f9bee;
@@ -450,11 +468,13 @@ a.ui-btn{
     position: relative;
 }
 
-.ui-calendar-feast-item span, .ui-calendar-holiday-item span{
+.ui-calendar-feast-item span,
+.ui-calendar-holiday-item span{
     font-size: 16px;
 }
 
-.ui-calendar-feast-item i, .ui-calendar-holiday-item i{
+.ui-calendar-feast-item i,
+.ui-calendar-holiday-item i{
     display: block;
     font-style: normal;
     font-size: 12px;

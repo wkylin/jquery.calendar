@@ -77,7 +77,13 @@
         //日期每一天绑定点击事件
         function tdClick(){
             $tBody.find("td:not(:empty)").on("click",function(){
-               $(this).find("a").addClass("ui-calendar-table-selected");
+                var $tdDec = $(this).find("a");
+                if($tdDec.hasClass("ui-calendar-table-selected")){
+                    $tdDec.removeClass("ui-calendar-table-selected");
+                }else{
+                    $tdDec.addClass("ui-calendar-table-selected");
+                }
+                
             });
         }
         
