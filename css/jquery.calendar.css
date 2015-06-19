@@ -48,13 +48,13 @@
 
 .ui-calendar-year-box{
     width: 80px;
+    position: relative;
 }
 
 .ui-calendar-month-box{
     padding: 0 22px;
     position: relative;
     width: 60px;
-    z-index: 1;
 }
 
 .ui-calendar-select-box{
@@ -123,6 +123,7 @@
     border-collapse: collapse;
     border-spacing: 0;
     width: 385px;
+    cursor: pointer;
 }
 
 .ui-calendar-table td, .ui-calendar-table th{
@@ -145,54 +146,43 @@
     text-align:center;
 }
 
-.ui-calendar-table-six td{
-    height: 45px;
-}
 
 .ui-calendar-table td a{
-    border-right: 1px solid #ffffff;
+    border: 3px solid #ffffff;
     display: block;
-    height: 33px;
-    line-height: 33px;
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
     overflow: hidden;
-    padding: 11px 3px 10px;
     text-align: center;
     text-decoration: none;
     white-space: nowrap;
-    width: 48px;
     outline: 0 none;
 }
 
-.ui-calendar-table{
-    cursor: pointer;
-}
-
-.ui-calendar-table-six td a{
-    padding: 6px 3px;
-}
 
 .ui-calendar-table td .ui-calendar-table-selected, .ui-calendar-table td a:hover{
-    border: 3px solid #ffbb00;
-    padding: 8px 0 7px;
-    width: 48px;
+    border: 3px solid #d4d4d4;
 }
 
-.ui-calendar-table-six td .ui-calendar-table-selected, .ui-calendar-table-six td a:hover{
-    padding: 3px 0;
-}
 
 .ui-calendar-daynumber{
     color: #000000;
     display: block;
     font-size: 18px;
-    height: 22px;
+    height: 30px;
 }
 
 .ui-calendar-table-almanac{
     color: #999999;
     display: block;
     font-size: 12px;
-    line-height: 2.0;
+    position:absolute;
+    bottom:3px;
+    left:3px;
+    text-align:center;
+    width:48px;
+    height:30px;
 }
 
 .ui-calendar-table-festival .ui-calendar-table-almanac, .ui-calendar-table-weekend .ui-calendar-daynumber, th.ui-calendar-table-weekend{

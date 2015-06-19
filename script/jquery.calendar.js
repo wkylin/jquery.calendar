@@ -63,6 +63,7 @@
             prevMonth();
             backToday();
             dropDown();
+            tdClick();
         };
 
         //初始化
@@ -73,6 +74,14 @@
             showDate(oYear, oMonth, oDate);
         }
 
+        //日期每一天绑定点击事件
+        function tdClick(){
+            $tBody.find("td:not(:empty)").on("click",function(){
+               $(this).find("a").addClass("ui-calendar-table-selected");
+            });
+        }
+        
+        
         //下拉菜单选择日期
         function dropDown() {
             $dropdownGroup.hover(function () {
