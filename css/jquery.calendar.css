@@ -149,11 +149,11 @@
 
 
 .ui-calendar-table td a{
-    border: 3px solid #ffffff;
+    /*border: 3px solid #ffffff;*/
     display: block;
-    width: 48px;
-    height: 48px;
-    line-height: 48px;
+    width: 54px;
+    height: 54px;
+    line-height: 54px;
     overflow: hidden;
     text-align: center;
     text-decoration: none;
@@ -162,12 +162,14 @@
 }
 
 .ui-calendar-table td a:hover{
-    border: 3px solid #ffffff;
     background-color: #d4d4d4;
 }
 
+.ui-calendar-table td a.ui-calendar-table-today{
+    background-color: #ffbb00;
+}
+
 .ui-calendar-table td .ui-calendar-table-selected{
-    border: 3px solid #ffffff;
     background: url("img/tally.png") right bottom no-repeat transparent;
 }
 
@@ -187,12 +189,6 @@ th.ui-calendar-table-weekend{
     color: #ffffff;
 }
 
-.ui-calendar-table td .ui-calendar-table-today{
-    background-color: #ffbb00;
-}
-
-
-
 
 .ui-calendar-daynumber{
     color: #000000;
@@ -206,7 +202,7 @@ th.ui-calendar-table-weekend{
     display: block;
     font-size: 12px;
     position:absolute;
-    bottom:3px;
+    bottom:5px;
     left:3px;
     text-align:center;
     width:48px;
@@ -215,7 +211,8 @@ th.ui-calendar-table-weekend{
 
 
 .ui-calendar-table-feast-sign,
-.ui-calendar-table-holiday-sign{
+.ui-calendar-table-holiday-sign,
+.ui-calendar-holiday-feast-sign{
     border: 1px solid #969799;
     padding:1px;
     color: #ff4433;
@@ -228,6 +225,7 @@ th.ui-calendar-table-weekend{
     text-align: left;
     text-indent: 1px;
     top: 0;
+    background-color:#fff;
 }
 
 .ui-calendar-table-holiday-sign{
@@ -235,7 +233,10 @@ th.ui-calendar-table-weekend{
 }
 
 .ui-calendar-table-feast-sign{
-    left: 20px;
+    left: 0;
+}
+.ui-calendar-holiday-feast-sign{
+    left:20px;
 }
 
 .ui-calendar-table-work .ui-calendar-table-holiday-sign{

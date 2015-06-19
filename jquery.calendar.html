@@ -16,7 +16,7 @@
                         <div class="ui-calendar-year-box">
                             <div tabindex="0" class="ui-dropdown ui-dropdown-common">
                                 <div class="ui-dropdown-btn-group">
-                                    <div class="ui-dropdown-btn"><span>2015</span>年</div>
+                                    <div class="ui-dropdown-btn"><span></span>年</div>
                                     <div class="ui-dropdown-btn-icon">
                                         <div class="ui-dropdown-btn-icon-border">
                                             <i class="ui-icon ui-icon-triangle-down"></i>
@@ -39,7 +39,7 @@
                             <a class="ui-calendar-next-month" href="javascript:void(0);">&gt;</a>
                             <div tabindex="0" class="ui-dropdown ui-dropdown-common">
                                 <div class="ui-dropdown-btn-group">
-                                    <div class="ui-dropdown-btn"><span>6</span>月</div>
+                                    <div class="ui-dropdown-btn"><span></span>月</div>
                                     <div class="ui-dropdown-btn-icon">
                                         <div class="ui-dropdown-btn-icon-border">
                                             <i class="ui-icon ui-icon-triangle-down"></i>
@@ -55,7 +55,7 @@
                         </div>
                     </div>
 
-                    <a href="javascript:void(0);" class="ui-btn ui-calendar-back-today" data-today="2015-06-19">返回今天</a>
+                    <a href="javascript:void(0);" class="ui-btn ui-calendar-back-today">返回今天</a>
 
                     <div class="ui-calendar-table-box">
                         <table class="ui-calendar-table" >
@@ -100,7 +100,7 @@
         $(document).ready(function () {
             var $scrollbar = $(".ui-calendar-box");
             $scrollbar.wkCalendar({
-                todayDate:new Date()
+                todayDate:new Date("2015-07-02")
             });
         });
     </script>
