@@ -33,7 +33,7 @@
         var maxYear = lastArrItem();
 
         var getUrl = "script/date.json";
-        
+
         //日期表格
         var $table = $container.find(".ui-calendar-table");
         var $tBody = $table.find("tbody");
@@ -56,6 +56,11 @@
         var $dropDownYearMenu = $container.find(".ui-calendar-year-box .ui-dropdown-menu-box");
         var $dropDownMonthMenu = $container.find(".ui-calendar-month-box .ui-dropdown-menu-box");
 
+        var $calendarInfo= $container.find(".ui-calendar-info");
+        var $calendarFeast= $container.find(".ui-calendar-feast");
+        var $calendarHoliday= $container.find(".ui-calendar-holiday");
+        var $feastList= $calendarFeast.find(".ui-calendar-feast-list");
+        var $holidayList= $calendarHoliday.find(".ui-calendar-holiday-list");
 
         function initialize() {
             self.update();
@@ -84,7 +89,7 @@
 
         //日期每一天绑定点击事件
         function tdClick() {
-            $tBody.find("td:not(:empty)").on("click", function () {
+            $tBody.find("td").on("click", function () {
                 var $tdDec = $(this).find("a");
                 if ($tdDec.hasClass("ui-calendar-table-selected")) {
                     $tdDec.removeClass("ui-calendar-table-selected");
@@ -250,7 +255,6 @@
             $table.append($tBody);
         }
 
-   
 
         //渲染日期表格数据
         function showDate(year, month, curDate) {
@@ -283,37 +287,49 @@
 
             switch (curDate.getDay()) {
                 case 0:
-                    queryAll(getUrl, "2015-06-01", 6 , $(aTd)); 
+                    queryAll(getUrl, 6, $(aTd));
                     break;
                 case 1:
-                    queryAll(getUrl,"2015-06-01",0,$(aTd));
+                    queryAll(getUrl, 0, $(aTd));
                     break;
                 case 2:
-                    queryAll(getUrl, "2015-06-01", 1, $(aTd));
+                    queryAll(getUrl, 1, $(aTd));
                     break;
                 case 3:
-                    queryAll(getUrl, "2015-06-01", 2, $(aTd));
+                    queryAll(getUrl, 2, $(aTd));
                     break;
                 case 4:
-                    queryAll(getUrl, "2015-06-01", 3, $(aTd));
+                    queryAll(getUrl, 3, $(aTd));
                     break;
                 case 5:
-                    queryAll(getUrl, "2015-06-01", 4, $(aTd));
+                    queryAll(getUrl, 4, $(aTd));
                     break;
                 case 6:
-                    queryAll(getUrl, "2015-06-01", 5, $(aTd));
+                    queryAll(getUrl, 5, $(aTd));
                     break;
             }
         }
 
-       
+        
+
         //查询
-        function queryAll(url,date,index,$aTd){
+        function queryAll(url, index, $aTd) {
             $.ajax(url).done(function (data) {
+                var isFeastArr = [], isHolidayArr = [];
                 for (var i = 0; i < dayNum; i++) {
-                    $aTd.eq(i+index).html(showTd(i));
+                    $aTd.eq(i + index).html(showTd(i));
                     var $relative = $aTd.eq(i).find("a");
                     var getDateList = data.dateDay;
+
+                    isFeastArr= $.grep(getDateList, function (value) {
+                        return value.isFeast == true;
+                    });
+
+                    isHolidayArr = $.grep(getDateList, function (value) {
+                        return value.isHoliday == true;
+                    });
+                   
+                    
                     if (getDateList[i].isHoliday) {
                         $relative.append($('<span class="ui-calendar-table-holiday-sign">休</span>'));
                     }
@@ -325,8 +341,43 @@
                         }
                     }
                 }
+                
+                
+                //渲染出每月休和节
+                showYearAndMoth();
+
+                console.log(isHolidayArr.length);
+                $feastList.empty();
+                $holidayList.empty();
+                $calendarInfo.find("p").remove();
+                if(isFeastArr.length==0){
+                    $("<p>暂无</p>").appendTo($calendarFeast);
+                }else{
+                    var feastItems=[];
+                    for(var i=0; i<isFeastArr.length; i++){
+                        feastItems.push('<li class="ui-calendar-feast-item"><span>'+ dateFormatForDot(isFeastArr[i].dateStr)+'</span><i>x</i></li>');
+                    }
+                    $(feastItems.join("")).appendTo($feastList);
+                }
+                
+                if(isHolidayArr.length==0){
+                    $("<p>暂无</p>").appendTo($calendarHoliday);
+                }else{
+                    var holidayItems = [];
+                    for (var j = 0;  j < isHolidayArr.length;j++) {
+                        holidayItems.push('<li class="ui-calendar-holiday-item"><span>' + dateFormatForDot(isHolidayArr[j].dateStr) + '</span><i>x</i></li>');
+                    }
+                    $(holidayItems.join("")).appendTo($holidayList);
+                }
+                
             });
         }
+
+        function showYearAndMoth(){
+            var $span= $calendarInfo.find("h2 span");
+            $span.html(oYear+"年"+oMonth+"月");
+        }
+        
         
         //日期显示
         function showTd(key) {
@@ -344,12 +395,12 @@
         }
 
         //为今天保存data
-        function renderDataToday(){
-            var todayDate = curYear+"-" + plusZero(curMonth) + "-"+ plusZero(oDay);
+        function renderDataToday() {
+            var todayDate = curYear + "-" + plusZero(curMonth) + "-" + plusZero(oDay);
             $backToday.data("today", todayDate);
         }
 
-        
+
         //显示选中的年月
         function dropdownSelected() {
 
@@ -372,6 +423,12 @@
         //小于10的补前导0
         function plusZero(str) {
             return str < 10 ? '0' + str : str;
+        }
+        
+        //日期格式转换
+        function dateFormatForDot(Str){
+            var dotStr= Str.replace(/-/g, '.');
+            return dotStr.substring(dotStr.indexOf(".")+1);
         }
 
         //求最大年份

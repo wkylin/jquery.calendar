@@ -50,7 +50,7 @@
          {
             "dateStr": "2015-06-10",
             "isHoliday": false,
-            "isFeast": false
+            "isFeast": true
         },
          {
             "dateStr": "2015-06-11",
@@ -60,7 +60,7 @@
          {
             "dateStr": "2015-06-12",
             "isHoliday": false,
-            "isFeast": false
+            "isFeast": true
         },
          {
             "dateStr": "2015-06-13",

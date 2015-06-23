@@ -73,23 +73,13 @@
                 </div>
             </div>
             <div class="ui-calendar-right">
-                <div class="ui-calendar-info">
-                    <h2>2015年6月指定休息日：</h2>
-                    <p>暂无</p>
-                    <ul class="ui-calendar-feast-list fn-clear">
-                        <li class="ui-calendar-feast-item"><span>06.01</span><i>x</i></li>
-                        <li class="ui-calendar-feast-item"><span>06.01</span><i>x</i></li>
-                        <li class="ui-calendar-feast-item"><span>06.01</span><i>x</i></li>
-                    </ul>
+                <div class="ui-calendar-info ui-calendar-feast">
+                    <h2><span></span>指定休息日：</h2>
+                    <ul class="ui-calendar-feast-list fn-clear"></ul>
                 </div>
-                <div class="ui-calendar-info">
-                    <h2>2015年6月法定节假日：</h2>
-                    <p>暂无</p>
-                    <ul class="ui-calendar-holiday-list fn-clear">
-                        <li class="ui-calendar-holiday-item"><span>06.01</span><i>x</i></li>
-                        <li class="ui-calendar-holiday-item"><span>06.01</span><i>x</i></li>
-                        <li class="ui-calendar-holiday-item"><span>06.01</span><i>x</i></li>
-                    </ul>
+                <div class="ui-calendar-info ui-calendar-holiday">
+                    <h2><span></span>法定节假日：</h2>
+                    <ul class="ui-calendar-holiday-list fn-clear"></ul>
                 </div>
             </div>
         </div>
@@ -100,7 +90,7 @@
         $(document).ready(function () {
             var $scrollbar = $(".ui-calendar-box");
             $scrollbar.wkCalendar({
-                todayDate:new Date("2015-07-02")
+                todayDate:new Date()
             });
         });
     </script>
