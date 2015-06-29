@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>DEMO</title>
+
+<style type="text/css">
+#wrap{ position: relative; overflow: hidden; width: 500px; height: 200px; margin: 50px auto 0; background: #E8E8E8; }
+
+#wrap .wrap-scroll-bar{ position: absolute; bottom: 0; left: 0; overflow: hidden; width: 100%; height: 15px; }
+
+#wrap .scroll-bar{ position: absolute; bottom: 0; left: 0; height: 15px; width: 20px; background: #CCC; }
+
+#wrap #cont{ position: absolute; top: 0; left: 0; width: 2000px; height: 185px; color: #FFF; background: #999; }
+
+#wrap #cont span{ margin-right: 200px; }
+</style>
+
+</head>
+
+<body>
+<div id="wrap">
+    <div id="cont">www.ifrans.cn www.ifrans.cn www.ifrans.cn www.ifrans.cn </div>
+    <div class="wrap-scroll-bar"><div class="scroll-bar"></div></div>
+</div>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+$(function () {
+    debugger;
+    var $cont = $('#cont');
+    var $wrap = $('#wrap');
+    var $scrollBar = $('.scroll-bar');
+    var $wrapScrollBar = $('.wrap-scroll-bar');
+    var $cw = $cont.width();
+    var $ww = $wrap.width();
+    //设置滚动按钮宽度
+    $scrollBar.width($ww * $ww / $cw);
+    
+    var $sw = $scrollBar.width();
+    var disX = 0;
+    
+    //滚动条拖动事件
+    $scrollBar.mousedown(function (event) {
+        disX = event.pageX - $(this).position().left;
+        if (this.setCapture) {
+            $(this).mousemove(function (event) {
+                fnChangePos(event.pageX - disX);
+            });
+            this.setCapture(); //设置捕获范围
+            $scrollBar.mouseup(function () {
+                $(this).unbind('mousemove mouseup');
+                this.releaseCapture(); //取消捕获范围
+            });
+        } else {
+            $(document).mousemove(function (event) {
+                fnChangePos(event.pageX - disX);
+            });
+            $(document).mouseup(function () {
+                $(document).unbind('mousemove mouseup');
+            });
+        }
+        return false;
+    });
+    function fnChangePos(data) {
+        if (data < 0) data = 0;
+        else if (data > ($ww - $sw)) data = $ww - $sw;
+        $scrollBar.css('left', data);
+        $cont.css('left', -($cw - $ww) * data / ($ww - $sw));
+    }
+    
+    //鼠标在滚动条上点击或滚动滚轮单次移动的距离
+    var sMoveDis = 100;
+    //滚动条单击事件注册
+    $wrapScrollBar.click(function (event) {
+        var relDisX = event.pageX - $(this).offset().left;
+        if (relDisX > ($scrollBar.position().left + $sw)) {
+            fnChangePos($scrollBar.position().left + sMoveDis)
+        } else if (relDisX < $scrollBar.position().left) {
+            fnChangePos(($scrollBar.position().left - sMoveDis))
+        }
+        ;
+    });
+    //阻止事件冒泡
+    $scrollBar.click(function (event) {
+        event.stopPropagation();
+    });
+    
+    //滚动条鼠标滚轮事件注册
+    if ($wrap[0].addEventListener) {  //for firefox
+        $wrap[0].addEventListener("DOMMouseScroll", fnMouseWheel);
+    }
+    $wrap[0].onmousewheel = fnMouseWheel; // for other browser
+    
+    
+    //鼠标滚轮事件处理函数
+    function fnMouseWheel(e) {
+        var evt = e || window.event;
+        var wheelDelta = evt.wheelDelta || evt.detail; //鼠标滚动值，可由此判断鼠标滚动方向
+        if (wheelDelta == -120 || wheelDelta == 3) fnChangePos($scrollBar.position().left + sMoveDis);
+        else if (wheelDelta == 120 || wheelDelta == -3) fnChangePos($scrollBar.position().left - sMoveDis);
+    }
+    
+});
+</script>
+</body>
+</html>

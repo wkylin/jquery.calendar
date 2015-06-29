@@ -15,7 +15,10 @@
         defaults = {
             todayDate: new Date(),
             beginYear: 2015,
-            yearIncrement: 20
+            yearIncrement: 50,
+            getUrlStr: "script/date.json",
+            editUrlStr: "script/editDate.json",
+            deleUrlStr: "script/date.json"
         };
 
     function Plugin($container, options) {
@@ -32,7 +35,10 @@
         var curMonth = oDate.getMonth() + 1;//当前日期，不改变
         var maxYear = lastArrItem();
 
-        var getUrl = "script/date.json";
+        //数据接口地址
+        var getUrl = this.options.getUrlStr;
+        var editUrl = this.options.editUrlStr;
+        var deleUrl = this.options.deleUrlStr;
 
         //日期表格
         var $table = $container.find(".ui-calendar-table");
@@ -52,15 +58,23 @@
         var $dropdownGroup = $dropdown.find(".ui-dropdown-btn-group");
         var $dropdownMenu = $dropdown.find(".ui-dropdown-menu");
         var $dropdownOption;
-
         var $dropDownYearMenu = $container.find(".ui-calendar-year-box .ui-dropdown-menu-box");
         var $dropDownMonthMenu = $container.find(".ui-calendar-month-box .ui-dropdown-menu-box");
 
-        var $calendarInfo= $container.find(".ui-calendar-info");
-        var $calendarFeast= $container.find(".ui-calendar-feast");
-        var $calendarHoliday= $container.find(".ui-calendar-holiday");
-        var $feastList= $calendarFeast.find(".ui-calendar-feast-list");
-        var $holidayList= $calendarHoliday.find(".ui-calendar-holiday-list");
+        //显示标识后的休节日
+        var $calendarInfo = $container.find(".ui-calendar-info");
+        var $calendarFeast = $container.find(".ui-calendar-feast");
+        var $calendarHoliday = $container.find(".ui-calendar-holiday");
+        var $feastList = $calendarFeast.find(".ui-calendar-feast-list");
+        var $holidayList = $calendarHoliday.find(".ui-calendar-holiday-list");
+    
+        
+        //标识休/节按钮
+        var $signFeast = $container.find(".ui-calendar-sign-feast");
+        var $signHoliday = $container.find(".ui-calendar-sign-holiday");
+        var isFeastArr = [], isHolidayArr = [];
+        var tempArr = [];
+        var getDateList = null;
 
         function initialize() {
             self.update();
@@ -73,7 +87,8 @@
             prevMonth();
             backToday();
             dropDown();
-            tdClick();
+            delegateTdClick();
+            deleteSigned();
         };
 
 
@@ -85,19 +100,6 @@
             renderDataToday();
             renderTbody();
             showDate(oYear, oMonth, oDate);
-        }
-
-        //日期每一天绑定点击事件
-        function tdClick() {
-            $tBody.find("td").on("click", function () {
-                var $tdDec = $(this).find("a");
-                if ($tdDec.hasClass("ui-calendar-table-selected")) {
-                    $tdDec.removeClass("ui-calendar-table-selected");
-                } else {
-                    $tdDec.addClass("ui-calendar-table-selected");
-                }
-
-            });
         }
 
 
@@ -206,8 +208,7 @@
         function isLeapYear(year) {
             if (year % 4 == 0 && year % 100 != 0) {
                 return true;
-            }
-            else {
+            } else {
                 if (year % 400 == 0) {
                     return true;
                 } else {
@@ -261,7 +262,7 @@
 
             $year.text(year);
             $month.text(month);
-
+            
             //判断月份的天数
             if (oMonth == 1 || oMonth == 3 || oMonth == 5 || oMonth == 7 || oMonth == 8 || oMonth == 10 || oMonth == 12) {
                 dayNum = 31;
@@ -280,9 +281,9 @@
             //设置当月第一天的星期数
             var aTd = $table.find('td');
             $(aTd).html('');
-
             curDate.setFullYear(year);
             curDate.setMonth(month - 1);
+            
             curDate.setDate(1);
 
             switch (curDate.getDay()) {
@@ -290,7 +291,9 @@
                     queryAll(getUrl, 6, $(aTd));
                     break;
                 case 1:
+                    debugger;
                     queryAll(getUrl, 0, $(aTd));
+                    
                     break;
                 case 2:
                     queryAll(getUrl, 1, $(aTd));
@@ -310,75 +313,144 @@
             }
         }
 
+        function delegateTdClick(){
+            //单元格编辑
+            $tBody.delegate("td", "click", function () {
+                var $tdDec = $(this).find("a");
+                var childrenSize = $tdDec.children().size();
+
+                if (childrenSize == 3) {
+                    return;
+                }
+
+                if ($tdDec.hasClass("ui-calendar-table-selected")) {
+                    $tdDec.removeClass("ui-calendar-table-selected");
+                    if (tempArr.length > 0) {
+                        tempArr = $.grep(tempArr, function (item) {
+                            return item.dateStr == $tdDec.data("date");
+                        }, true);
+                    }
+                } else {
+                    $tdDec.addClass("ui-calendar-table-selected");
+                    var tempJson = {"dateStr": $tdDec.data("date"), "isHoliday": false, "isFeast": false}
+                    tempArr.push(tempJson);
+                }
+            });
+        }
         
 
+        //标识为休息日
+        $signFeast.on("click", function () {
+            for (var i = 0; i < tempArr.length; i++) {
+                tempArr[i].isFeast = true;
+            }
+            //console.log(tempArr);
+            $.ajax({
+                url: editUrl,
+                type: "POST",
+                data: tempArr,
+                dataType: "json"
+            }).done(function () {
+                getUrl = editUrl; //测试使用,开发完成删除
+                showDate(oYear, oMonth, oDate);
+            });
+            tempArr.length = 0;
+        });
+
+        //标识为节假日
+        $signHoliday.on("click", function () {
+            for (var i = 0; i < tempArr.length; i++) {
+                tempArr[i].isHoliday = true;
+            }
+            $.ajax({
+                url: editUrl,
+                type: "POST",
+                data: tempArr,
+                dataType:"json"
+            }).done(function () {
+                getUrl = editUrl; //测试使用,开发完成删除
+                showDate(oYear, oMonth, oDate);
+            });
+            showDate(oYear, oMonth, oDate);
+            tempArr.length = 0;
+        });
+
+
         //查询
-        function queryAll(url, index, $aTd) {
-            $.ajax(url).done(function (data) {
-                var isFeastArr = [], isHolidayArr = [];
-                for (var i = 0; i < dayNum; i++) {
-                    $aTd.eq(i + index).html(showTd(i));
-                    var $relative = $aTd.eq(i).find("a");
-                    var getDateList = data.dateDay;
-
-                    isFeastArr= $.grep(getDateList, function (value) {
-                        return value.isFeast == true;
-                    });
-
-                    isHolidayArr = $.grep(getDateList, function (value) {
-                        return value.isHoliday == true;
-                    });
-                   
-                    
-                    if (getDateList[i].isHoliday) {
-                        $relative.append($('<span class="ui-calendar-table-holiday-sign">休</span>'));
-                    }
-                    if (getDateList[i].isFeast) {
-                        if (getDateList[i].isHoliday) {
-                            $relative.append($('<span class="ui-calendar-holiday-feast-sign">节</span>'));
-                        } else {
-                            $relative.append($('<span class="ui-calendar-table-feast-sign">节</span>'));
-                        }
-                    }
-                }
-                
-                
-                //渲染出每月休和节
-                showYearAndMoth();
-
-                console.log(isHolidayArr.length);
-                $feastList.empty();
-                $holidayList.empty();
-                $calendarInfo.find("p").remove();
-                if(isFeastArr.length==0){
-                    $("<p>暂无</p>").appendTo($calendarFeast);
-                }else{
-                    var feastItems=[];
-                    for(var i=0; i<isFeastArr.length; i++){
-                        feastItems.push('<li class="ui-calendar-feast-item"><span>'+ dateFormatForDot(isFeastArr[i].dateStr)+'</span><i>x</i></li>');
-                    }
-                    $(feastItems.join("")).appendTo($feastList);
-                }
-                
-                if(isHolidayArr.length==0){
-                    $("<p>暂无</p>").appendTo($calendarHoliday);
-                }else{
-                    var holidayItems = [];
-                    for (var j = 0;  j < isHolidayArr.length;j++) {
-                        holidayItems.push('<li class="ui-calendar-holiday-item"><span>' + dateFormatForDot(isHolidayArr[j].dateStr) + '</span><i>x</i></li>');
-                    }
-                    $(holidayItems.join("")).appendTo($holidayList);
-                }
-                
+        function queryAll(dataUri, index, $aTd) {
+            $.ajax({
+                url: dataUri,
+                type:"POST",
+                data:{"dateYear":oYear,"dateMonth":oMonth},
+                dataType: "json"
+            }).done(function (data) {
+                getDateList = data.dateDay;
+                _renderText(index, $aTd);
             });
         }
 
-        function showYearAndMoth(){
-            var $span= $calendarInfo.find("h2 span");
-            $span.html(oYear+"年"+oMonth+"月");
+        //渲染休节日文案
+        function _renderText(index, $aTd) {
+
+            for (var k = 0; k < dayNum; k++) {
+
+                $aTd.eq(k + index).html(showTd(k));
+                var $relative = $aTd.eq(k+index).find("a");
+
+                isFeastArr = $.grep(getDateList, function (value) {
+                    return value.isFeast == true;
+                });
+
+                isHolidayArr = $.grep(getDateList, function (value) {
+                    return value.isHoliday == true;
+                });
+                
+                if (getDateList[k].isHoliday) {
+                    $relative.append($('<span class="ui-calendar-table-holiday-sign">休</span>'));
+                }
+                if (getDateList[k].isFeast) {
+                    if (getDateList[k].isHoliday) {
+                        $relative.append($('<span class="ui-calendar-holiday-feast-sign">节</span>'));
+                    } else {
+                        $relative.append($('<span class="ui-calendar-table-feast-sign">节</span>'));
+                    }
+                }
+            }
+
+
+            //渲染出每月休和节
+            showYearAndMoth();
+
+            $feastList.empty();
+            $holidayList.empty();
+            $calendarInfo.find("p").remove();
+            if (isFeastArr.length == 0) {
+                $("<p>暂无</p>").appendTo($calendarFeast);
+            } else {
+                var feastItems = [];
+                for (var i = 0; i < isFeastArr.length; i++) {
+                    feastItems.push('<li class="ui-calendar-feast-item"><span data-sign="feast" data-date="'+ isFeastArr[i].dateStr +'">' + dateFormatForDot(isFeastArr[i].dateStr) + '</span><i>x</i></li>');
+                }
+                $(feastItems.join("")).appendTo($feastList);
+            }
+
+            if (isHolidayArr.length == 0) {
+                $("<p>暂无</p>").appendTo($calendarHoliday);
+            } else {
+                var holidayItems = [];
+                for (var j = 0; j < isHolidayArr.length; j++) {
+                    holidayItems.push('<li class="ui-calendar-holiday-item"><span data-sign="holiday" data-date="'+ isHolidayArr[j].dateStr +'">' + dateFormatForDot(isHolidayArr[j].dateStr) + '</span><i>x</i></li>');
+                }
+                $(holidayItems.join("")).appendTo($holidayList);
+            }
         }
-        
-        
+
+        function showYearAndMoth() {
+            var $span = $calendarInfo.find("h2 span");
+            $span.html(oYear + "年" + oMonth + "月");
+        }
+
+
         //日期显示
         function showTd(key) {
             var dateStr = oYear + '-' + plusZero(oMonth) + '-' + plusZero(1 + key);
@@ -420,15 +492,33 @@
             });
         }
 
+        //删除已标识的日期
+        function deleteSigned(){
+            $calendarInfo.delegate("i","click",function(){
+                var $span = $(this).prev("span");
+                var signType = $span.data("sign");
+                var dateItem = $span.data("date");
+                $.ajax({
+                    url:deleUrl,
+                    type:"POST",
+                    data:{"date": dateItem,"signType": signType},//与后端开发协商一下传值方式
+                    dataType:"json"
+                }).done(function(){
+                    getUrl = deleUrl;
+                    showDate(oYear, oMonth, oDate);
+                });
+            });
+        }
+        
         //小于10的补前导0
         function plusZero(str) {
             return str < 10 ? '0' + str : str;
         }
-        
+
         //日期格式转换
-        function dateFormatForDot(Str){
-            var dotStr= Str.replace(/-/g, '.');
-            return dotStr.substring(dotStr.indexOf(".")+1);
+        function dateFormatForDot(Str) {
+            var dotStr = Str.replace(/-/g, '.');
+            return dotStr.substring(dotStr.indexOf(".") + 1);
         }
 
         //求最大年份
