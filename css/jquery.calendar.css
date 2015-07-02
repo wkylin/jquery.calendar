@@ -6,6 +6,7 @@
     position: relative;
     z-index: 1;
     width: 940px;
+    height:540px;
     margin: 0 auto;
 }
 
@@ -33,6 +34,7 @@
 .ui-calendar-info h2,
 .ui-calendar-info p{
     font-size: 16px;
+    margin-bottom:10px;
 }
 
 .ui-calendar-container{
@@ -58,7 +60,6 @@
 }
 
 .ui-calendar-select-box{
-    float: left;
     height: 26px;
 }
 
@@ -68,7 +69,6 @@
 }
 
 .ui-calendar-table-box{
-    float: left;
     margin-top: 10px;
 }
 
@@ -137,6 +137,7 @@
 .ui-calendar-relative{
     position: relative;
     width: 100%;
+    z-index: -1;
 }
 
 .ui-calendar-table th{
@@ -149,7 +150,6 @@
 
 
 .ui-calendar-table td a{
-    /*border: 3px solid #ffffff;*/
     display: block;
     width: 54px;
     height: 54px;
@@ -195,6 +195,7 @@ th.ui-calendar-table-weekend{
     display: block;
     font-size: 18px;
     height: 30px;
+    line-height: 60px;
 }
 
 .ui-calendar-table-almanac{
@@ -207,6 +208,7 @@ th.ui-calendar-table-weekend{
     text-align:center;
     width:48px;
     height:30px;
+    line-height: 60px;
 }
 
 
@@ -336,7 +338,7 @@ a.ui-btn{
     position: relative;
 }
 
-.ui-dropdown:hover .ui-dropdown-btn-group, 
+.ui-dropdown:hover .ui-dropdown-btn-group,
 .ui-dropdown-hover .ui-dropdown-btn-group{
     box-shadow: 1px 1px 0 0 #d8d8d8 inset;
 }
@@ -354,6 +356,7 @@ a.ui-btn{
 .ui-dropdown .ui-dropdown-btn{
     cursor: default;
     height: 24px;
+    line-height: 24px;
     overflow: hidden;
     padding: 0 10px 0 5px;
     white-space: nowrap;
@@ -384,18 +387,18 @@ a.ui-btn{
 .ui-dropdown .ui-dropdown-menu{
     background: #ffffff none repeat scroll 0 0;
     border: 1px solid #bbbbbb;
-    left: 0;
     overflow: hidden;
-    position: absolute;
-    top: 100%;
-    width: 98%;
+    position: relative;
     z-index: 100;
     display:none;
 }
 
 .ui-dropdown .ui-dropdown-menu-inner{
     overflow: hidden;
-    z-index: 100;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
 }
 
 .ui-dropdown .ui-dropdown-option{
@@ -432,6 +435,7 @@ a.ui-btn{
     padding: 20px 0;
 }
 
+.ui-calendar-sign-disabled,
 .ui-calendar-sign-feast,
 .ui-calendar-sign-holiday{
     height: 38px;
@@ -451,6 +455,11 @@ a.ui-btn{
 .ui-calendar-sign-holiday{
     background-color: #ffffff;
 }
+.ui-calendar-sign-disabled{
+    border: 1px solid #bbb;
+    background-color: #a2a6ab;
+    color:#fff;
+}
 
 .ui-calendar-feast-list,
 .ui-calendar-holiday-list{
@@ -467,6 +476,8 @@ a.ui-btn{
     float: left;
     display: inline;
     position: relative;
+    text-align:center;
+    cursor:pointer;
 }
 
 .ui-calendar-feast-item span,
@@ -476,7 +487,7 @@ a.ui-btn{
 
 .ui-calendar-feast-item i,
 .ui-calendar-holiday-item i{
-    display: block;
+    display: none;
     font-style: normal;
     font-size: 12px;
     width: 15px;
@@ -489,4 +500,97 @@ a.ui-btn{
     right: 5px;
     top: 7px;
     cursor: pointer;
+}
+
+
+/* scrollbar css */
+.ui-scroll-ctrl-content{
+    overflow: hidden;
+}
+
+.ui-scroll-ctrl-scroll{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    border-top: 1px solid #e1e1e1;
+    border-left: 1px solid #e1e1e1;
+    cursor: default;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    z-index: 100;
+    display: none;
+}
+
+.ui-scroll-ctrl-scroll-hover{
+    border-top: 1px solid #ababab;
+    border-left: 1px solid #ababab;
+    border-bottom: 1px solid #ababab;
+}
+
+.ui-scroll-ctrl-scroll-touch{
+    width: 7px;
+    border: 1px solid #ababab;
+    border-right: 1px solid #a1a1a1;
+}
+
+.ui-scroll-ctrl-scroll .ui-scroll-axis{
+    width: 8px;
+    left: 0;
+    z-index: 0;
+    position: absolute;
+    background: #f2f2f2;
+}
+
+.ui-scroll-ctrl-scroll-touch .ui-scroll-axis{
+    width: 7px;
+    background: #bfbfbf;
+}
+
+.ui-scroll-ctrl-scroll-hover .ui-scroll-axis{
+    background: #bfbfbf;
+}
+
+.ui-scroll-ctrl-scroll .ui-scroll-slider{
+    overflow: hidden;
+    width: 7px;
+    height: 14px;
+    position: absolute;
+    left: 0;
+    z-index: 10;
+    background: #ffffff;
+    margin-top: -1px;
+    margin-left: -1px;
+    border: 1px solid #e1e1e1;
+    border-bottom: 1px solid #d4d4d4;
+    cursor: default;
+}
+
+.ui-scroll-ctrl-scroll-touch .ui-scroll-slider{
+    border: 1px solid #bebebe;
+    border-bottom: 1px solid #aeaeae;
+}
+
+.ui-scroll-ctrl-scroll-hover .ui-scroll-slider{
+    border: 1px solid #bebebe;
+    border-bottom: 1px solid #aeaeae;
+}
+
+.ui-scroll-ctrl-scroll .ui-scroll-up, .ui-scroll-ctrl-scroll .ui-scroll-down{
+    overflow: hidden;
+    width: 7px;
+    height: 14px;
+    position: absolute;
+    left: 0;
+    background: #ffffff;
+    z-index: 10;
+    cursor: default;
+}
+
+.ui-scroll-ctrl-scroll .ui-scroll-up{
+    top: 0;
+}
+
+.ui-scroll-ctrl-scroll .ui-scroll-down{
+    bottom: 0;
 }

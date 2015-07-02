@@ -56,7 +56,6 @@
          */
         var $dropdown = $container.find(".ui-calendar-year-box .ui-dropdown,.ui-calendar-month-box .ui-dropdown");
         var $dropdownGroup = $dropdown.find(".ui-dropdown-btn-group");
-        var $dropdownMenu = $dropdown.find(".ui-dropdown-menu");
         var $dropdownOption;
         var $dropDownYearMenu = $container.find(".ui-calendar-year-box .ui-dropdown-menu-box");
         var $dropDownMonthMenu = $container.find(".ui-calendar-month-box .ui-dropdown-menu-box");
@@ -67,8 +66,11 @@
         var $calendarHoliday = $container.find(".ui-calendar-holiday");
         var $feastList = $calendarFeast.find(".ui-calendar-feast-list");
         var $holidayList = $calendarHoliday.find(".ui-calendar-holiday-list");
-    
-        
+
+        //模拟滚动条条块
+        var $dropdownMenu = $container.find(".ui-dropdown-menu");
+
+
         //标识休/节按钮
         var $signFeast = $container.find(".ui-calendar-sign-feast");
         var $signHoliday = $container.find(".ui-calendar-sign-holiday");
@@ -94,14 +96,117 @@
 
         //初始化
         function init() {
-
             renderDropdownYear();
             renderDropdownMonth();
             renderDataToday();
             renderTbody();
+            renderDropDown();
             showDate(oYear, oMonth, oDate);
         }
 
+
+        //模拟原生下拉菜单相关事件
+        function ctrlScroll($dropdownMenu) {
+            var $dropdownInner = $dropdownMenu.find(".ui-dropdown-menu-inner");
+            var $dropdownMenuBox = $dropdownMenu.find(".ui-dropdown-menu-box");
+            var $ctrlScroll = $dropdownMenu.find(".ui-scroll-ctrl-scroll");
+            var $ctrlScrollAxis = $dropdownMenu.find(".ui-scroll-axis");
+            var $ctrlScrollSlider = $dropdownMenu.find(".ui-scroll-slider");
+
+
+            $dropdownMenu.hover(function () {
+                $ctrlScroll.addClass("ui-scroll-ctrl-scroll-hover");
+            }, function () {
+                $ctrlScroll.removeClass("ui-scroll-ctrl-scroll-hover");
+            });
+
+
+            //设置滑动块的高度
+            var dmbHeight = $dropdownMenuBox.height();
+            var dmHeight = $dropdownMenu.height();
+            $ctrlScrollSlider.height(parseInt(dmHeight * dmHeight / dmbHeight));
+            $ctrlScroll.height(dmHeight);
+            $ctrlScrollAxis.height(dmHeight);
+            //获取滑动块的高度
+            var cssHeight = $ctrlScrollSlider.height();
+
+
+            var disY = 0;
+            var sMoveDis = 100;
+            
+            if(dmbHeight> dmHeight){
+                $ctrlScroll.show();
+            }
+
+            //滚动条拖动事件
+            $ctrlScrollSlider.mousedown(function (event) {
+                disY = event.pageY - $(this).position().top;
+                if (this.setCapture) {
+                    $(this).mousemove(function (event) {
+                        fnChangePos(event.pageY - disY);
+                    });
+                    this.setCapture(); //设置捕获范围
+                    $ctrlScrollSlider.mouseup(function () {
+                        $(this).unbind('mousemove mouseup');
+                        this.releaseCapture(); //取消捕获范围
+                    });
+                } else {
+                    $(document).mousemove(function (event) {
+                        fnChangePos(event.pageY - disY);
+                    });
+                    $(document).mouseup(function () {
+                        $(document).unbind('mousemove mouseup');
+                    });
+                }
+                return false;
+            });
+
+            //改变滑动块的位置
+            function fnChangePos(data) {
+                if (data < 0) {
+                    data = 0;
+                } else if (data > (dmHeight - cssHeight)) {
+                    data = dmHeight - cssHeight;
+                }
+                $ctrlScrollSlider.css('top', data);
+                $dropdownInner.css('top', -parseInt((dmbHeight - dmHeight) * data / (dmHeight - cssHeight)));
+            }
+
+            //滚动条单击事件注册
+            $ctrlScrollAxis.on("click", function (event) {
+                var relDisX = event.pageY - $(this).offset().top;
+                if (relDisX > ($ctrlScrollSlider.position().top + cssHeight)) {
+                    fnChangePos($ctrlScrollSlider.position().top + sMoveDis)
+                } else if (relDisX < $ctrlScrollSlider.position().top) {
+                    fnChangePos(($ctrlScrollSlider.position().top - sMoveDis))
+                }
+            });
+            //阻止事件冒泡
+            $ctrlScroll.click(function () {
+                return false;
+            });
+
+            //滚动条鼠标滚轮事件注册
+            if ($dropdownMenu[0].addEventListener) {
+                $dropdownMenu[0].addEventListener("DOMMouseScroll", fnMouseWheel);
+            }
+            $dropdownMenu[0].onmousewheel = fnMouseWheel; // for other browser
+
+
+            //鼠标滚轮事件处理函数
+            function fnMouseWheel(e) {
+                var evt = e || window.event;
+                var wheelDelta = evt.wheelDelta || evt.detail;
+                if (wheelDelta == -120 || wheelDelta == 3) {
+                    fnChangePos($ctrlScrollSlider.position().top + sMoveDis);
+                } else if (wheelDelta == 120 || wheelDelta == -3) {
+                    fnChangePos($ctrlScrollSlider.position().top - sMoveDis);
+                }
+                evt.stopPropagation();
+                evt.preventDefault();
+                return false;
+            }
+        }
 
         //下拉菜单选择日期
         function dropDown() {
@@ -117,8 +222,10 @@
                     $menu.hide();
                     return false;
                 } else {
-                    $(".ui-dropdown-menu").hide();
-                    $menu.show();
+                    $(".ui-dropdown-menu").hide(); //隐藏所有
+                    $menu.slideDown(100, function () {
+                        ctrlScroll($menu);
+                    });
                     return false;
                 }
             });
@@ -206,18 +313,9 @@
 
         //判断是否润年  
         function isLeapYear(year) {
-            if (year % 4 == 0 && year % 100 != 0) {
-                return true;
-            } else {
-                if (year % 400 == 0) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
+            return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
         }
-
-
+        
         //渲染年份
         function renderDropdownYear() {
             var yearList = [];
@@ -256,13 +354,17 @@
             $table.append($tBody);
         }
 
+        //渲染下拉菜单的高度
+        function renderDropDown() {
+            $dropdownMenu.height($dropdownMenu.data("height"));
+        }
 
         //渲染日期表格数据
         function showDate(year, month, curDate) {
 
             $year.text(year);
             $month.text(month);
-            
+
             //判断月份的天数
             if (oMonth == 1 || oMonth == 3 || oMonth == 5 || oMonth == 7 || oMonth == 8 || oMonth == 10 || oMonth == 12) {
                 dayNum = 31;
@@ -283,7 +385,7 @@
             $(aTd).html('');
             curDate.setFullYear(year);
             curDate.setMonth(month - 1);
-            
+
             curDate.setDate(1);
 
             switch (curDate.getDay()) {
@@ -291,9 +393,7 @@
                     queryAll(getUrl, 6, $(aTd));
                     break;
                 case 1:
-                    debugger;
                     queryAll(getUrl, 0, $(aTd));
-                    
                     break;
                 case 2:
                     queryAll(getUrl, 1, $(aTd));
@@ -313,7 +413,7 @@
             }
         }
 
-        function delegateTdClick(){
+        function delegateTdClick() {
             //单元格编辑
             $tBody.delegate("td", "click", function () {
                 var $tdDec = $(this).find("a");
@@ -332,22 +432,33 @@
                     }
                 } else {
                     $tdDec.addClass("ui-calendar-table-selected");
-                    var tempJson = {"dateStr": $tdDec.data("date"), "isHoliday": false, "isFeast": false}
+                    var tempJson = {"dateStr": $tdDec.data("date"), "isHoliday": false, "isFeast": false};
                     tempArr.push(tempJson);
+                }
+                
+                if(tempArr.length>0){
+                    $signFeast.removeClass("ui-calendar-sign-disabled");
+                    $signHoliday.removeClass("ui-calendar-sign-disabled");
+                }else{
+                    $signFeast.addClass("ui-calendar-sign-disabled");
+                    $signHoliday.addClass("ui-calendar-sign-disabled");
                 }
             });
         }
-        
+
 
         //标识为休息日
         $signFeast.on("click", function () {
+            if($(this).hasClass("ui-calendar-sign-disabled") || tempArr.length == 0){
+                return false;
+            }
             for (var i = 0; i < tempArr.length; i++) {
                 tempArr[i].isFeast = true;
             }
             //console.log(tempArr);
             $.ajax({
                 url: editUrl,
-                type: "POST",
+                type: "get",
                 data: tempArr,
                 dataType: "json"
             }).done(function () {
@@ -359,14 +470,19 @@
 
         //标识为节假日
         $signHoliday.on("click", function () {
+
+            if ($(this).hasClass("ui-calendar-sign-disabled") || tempArr.length==0 ) {
+                return false;
+            }
+            
             for (var i = 0; i < tempArr.length; i++) {
                 tempArr[i].isHoliday = true;
             }
             $.ajax({
                 url: editUrl,
-                type: "POST",
+                type: "get",
                 data: tempArr,
-                dataType:"json"
+                dataType: "json"
             }).done(function () {
                 getUrl = editUrl; //测试使用,开发完成删除
                 showDate(oYear, oMonth, oDate);
@@ -380,8 +496,8 @@
         function queryAll(dataUri, index, $aTd) {
             $.ajax({
                 url: dataUri,
-                type:"POST",
-                data:{"dateYear":oYear,"dateMonth":oMonth},
+                type: "get",
+                data: {"dateYear": oYear, "dateMonth": oMonth},
                 dataType: "json"
             }).done(function (data) {
                 getDateList = data.dateDay;
@@ -395,7 +511,7 @@
             for (var k = 0; k < dayNum; k++) {
 
                 $aTd.eq(k + index).html(showTd(k));
-                var $relative = $aTd.eq(k+index).find("a");
+                var $relative = $aTd.eq(k + index).find("a");
 
                 isFeastArr = $.grep(getDateList, function (value) {
                     return value.isFeast == true;
@@ -404,7 +520,7 @@
                 isHolidayArr = $.grep(getDateList, function (value) {
                     return value.isHoliday == true;
                 });
-                
+
                 if (getDateList[k].isHoliday) {
                     $relative.append($('<span class="ui-calendar-table-holiday-sign">休</span>'));
                 }
@@ -429,7 +545,7 @@
             } else {
                 var feastItems = [];
                 for (var i = 0; i < isFeastArr.length; i++) {
-                    feastItems.push('<li class="ui-calendar-feast-item"><span data-sign="feast" data-date="'+ isFeastArr[i].dateStr +'">' + dateFormatForDot(isFeastArr[i].dateStr) + '</span><i>x</i></li>');
+                    feastItems.push('<li class="ui-calendar-feast-item"><span data-sign="feast" data-date="' + isFeastArr[i].dateStr + '">' + dateFormatForDot(isFeastArr[i].dateStr) + '</span><i>x</i></li>');
                 }
                 $(feastItems.join("")).appendTo($feastList);
             }
@@ -439,12 +555,13 @@
             } else {
                 var holidayItems = [];
                 for (var j = 0; j < isHolidayArr.length; j++) {
-                    holidayItems.push('<li class="ui-calendar-holiday-item"><span data-sign="holiday" data-date="'+ isHolidayArr[j].dateStr +'">' + dateFormatForDot(isHolidayArr[j].dateStr) + '</span><i>x</i></li>');
+                    holidayItems.push('<li class="ui-calendar-holiday-item"><span data-sign="holiday" data-date="' + isHolidayArr[j].dateStr + '">' + dateFormatForDot(isHolidayArr[j].dateStr) + '</span><i>x</i></li>');
                 }
                 $(holidayItems.join("")).appendTo($holidayList);
             }
         }
 
+        //点击时渲染不同的年月
         function showYearAndMoth() {
             var $span = $calendarInfo.find("h2 span");
             $span.html(oYear + "年" + oMonth + "月");
@@ -492,24 +609,36 @@
             });
         }
 
+
+        
         //删除已标识的日期
-        function deleteSigned(){
-            $calendarInfo.delegate("i","click",function(){
+        function deleteSigned() {
+
+            //绑定悬停事件
+            $calendarInfo.delegate("li", "mouseover", function () {
+                $(this).find("i").show();
+            });
+            $calendarInfo.delegate("li", "mouseout", function () {
+                $(this).find("i").hide();
+            });
+            
+            //绑定点击事件
+            $calendarInfo.delegate("i", "click", function () {
                 var $span = $(this).prev("span");
                 var signType = $span.data("sign");
                 var dateItem = $span.data("date");
                 $.ajax({
-                    url:deleUrl,
-                    type:"POST",
-                    data:{"date": dateItem,"signType": signType},//与后端开发协商一下传值方式
-                    dataType:"json"
-                }).done(function(){
+                    url: deleUrl,
+                    type: "get",
+                    data: {"date": dateItem, "signType": signType},//与后端开发协商一下传值方式
+                    dataType: "json"
+                }).done(function () {
                     getUrl = deleUrl;
                     showDate(oYear, oMonth, oDate);
                 });
             });
         }
-        
+
         //小于10的补前导0
         function plusZero(str) {
             return str < 10 ? '0' + str : str;

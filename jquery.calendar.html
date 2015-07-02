@@ -5,10 +5,8 @@
     <title>日期管理</title>
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/jquery.calendar.css" />
-    <link rel="stylesheet" href="css/jquery.scrollbar.css" />
 </head>
 <body>
-
     <div style="font-size:16px; text-align:center;margin:30px;">测试数据请点击23号,^_^</div>
     <div class="ui-calendar">
         <div class="ui-calendar-box ">
@@ -25,13 +23,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="ui-dropdown-menu" style="height:312px;overflow-y: scroll;">
+                                <div class="ui-dropdown-menu" data-height="312">
                                     <div class="ui-dropdown-menu-inner">
                                         <ul class="ui-dropdown-menu-box"></ul>
                                     </div>
-                                    <div class="ui-scroll-ctrl-scroll ui-scroll-ctrl-scroll-hover" style="height: 312px; display: none;">
-                                        <div class="ui-scroll-axis" style="height: 312px;"></div>
-                                        <div class="ui-scroll-slider" style="display: block; height: 26px; top:26px;"></div>
+                                    <div class="ui-scroll-ctrl-scroll">
+                                        <div class="ui-scroll-axis"></div>
+                                        <div class="ui-scroll-slider"></div>
                                     </div>
                                 </div>
                             </div>
@@ -48,19 +46,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="ui-dropdown-menu" >
-                                    <div class="ui-dropdown-menu-inner" >
+                                <div class="ui-dropdown-menu" data-height="312">
+                                    <div class="ui-dropdown-menu-inner">
                                          <ul class="ui-dropdown-menu-box"></ul>
+                                    </div>
+                                    <div class="ui-scroll-ctrl-scroll">
+                                        <div class="ui-scroll-axis"></div>
+                                        <div class="ui-scroll-slider"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <a href="javascript:void(0);" class="ui-btn ui-calendar-back-today">返回今天</a>
                     </div>
 
-                    <a href="javascript:void(0);" class="ui-btn ui-calendar-back-today">返回今天</a>
-
                     <div class="ui-calendar-table-box">
-                        <table class="ui-calendar-table" >
+                        <table class="ui-calendar-table">
                             <tbody>
                             <tr>
                                 <th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th class="ui-calendar-table-weekend">六</th><th class="ui-calendar-table-weekend">日</th>
@@ -70,8 +71,8 @@
                     </div>
                 </div>
                 <div class="ui-calendar-editor">
-                    <div class="ui-calendar-sign-feast">标记为节假日</div>
-                    <div class="ui-calendar-sign-holiday">标记为休息日</div>
+                    <div class="ui-calendar-sign-feast ui-calendar-sign-disabled">标记为节假日</div>
+                    <div class="ui-calendar-sign-holiday ui-calendar-sign-disabled">标记为休息日</div>
                 </div>
             </div>
             <div class="ui-calendar-right">
@@ -86,13 +87,16 @@
             </div>
         </div>
     </div>
+    <div style="height:2000px;">
+        占位符,测试绑定鼠标滚轮事件
+    </div>
     <script type="text/javascript" src="script/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="script/jquery.calendar.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var $scrollbar = $(".ui-calendar-box");
             $scrollbar.wkCalendar({
-                todayDate:new Date()
+                todayDate: new Date()
             });
         });
     </script>

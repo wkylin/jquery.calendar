@@ -5,7 +5,6 @@
     <title>日期管理</title>
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/jquery.calendar.css" />
-    <link rel="stylesheet" href="css/jquery.scrollbar.css" />
 </head>
 <body>
     <div class="ui-calendar">
@@ -23,9 +22,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="ui-dropdown-menu" style="display:block;">
-                                    <div class="ui-dropdown-menu-inner" >
-                                        <ul class="ui-dropdown-menu-box ">
+                                <div class="ui-dropdown-menu" style="display:block; height:180px;">
+                                    <div class="ui-dropdown-menu-inner">
+                                        <ul class="ui-dropdown-menu-box">
                                             <li data-value="1900" class="ui-dropdown-option">1900年</li>
                                             <li data-value="1901" class="ui-dropdown-option">1901年</li>
                                             <li data-value="1902" class="ui-dropdown-option">1902年</li>
@@ -35,7 +34,7 @@
                                             <li data-value="1906" class="ui-dropdown-option">1906年</li>
                                         </ul>
                                     </div>
-                                    <div class="ui-scroll-ctrl-scroll ui-scroll-ctrl-scroll-hover" style="height: 180px;">
+                                    <div class="ui-scroll-ctrl-scroll ui-scroll-ctrl-scroll-hover" style="display:block;height: 180px;">
                                         <div class="ui-scroll-axis" style="height: 180px;"></div>
                                         <div class="ui-scroll-slider" style="display: block; height: 30px; top:20px;">
                                             <!--<div class="ui-scroll-s-top"></div>
@@ -58,8 +57,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="ui-dropdown-menu" >
-                                    <div class="ui-dropdown-menu-inner" >
+                                <div class="ui-dropdown-menu">
+                                    <div class="ui-dropdown-menu-inner">
                                          <ul class="ui-dropdown-menu-box">
                                              <li data-value="1" class="ui-dropdown-option">1月</li>
                                              <li data-value="2" class="ui-dropdown-option">2月</li>
@@ -75,15 +74,18 @@
                                              <li data-value="12" class="ui-dropdown-option">12月</li>
                                          </ul>
                                     </div>
+                                    <div class="ui-scroll-ctrl-scroll">
+                                        <div class="ui-scroll-axis"></div>
+                                        <div class="ui-scroll-slider"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <a href="javascript:void(0);" class="ui-btn ui-calendar-back-today">返回今天</a>
                     </div>
 
-                    <a href="javascript:void(0);" class="ui-btn ui-calendar-back-today">返回今天</a>
-
                     <div class="ui-calendar-table-box">
-                        <table class="ui-calendar-table" >
+                        <table class="ui-calendar-table">
                             <tbody>
                             <tr>
                                 <th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th class="ui-calendar-table-weekend">六</th><th class="ui-calendar-table-weekend">日</th>
@@ -356,7 +358,7 @@
                 </div>
                 <div class="ui-calendar-editor">
                     <div class="ui-calendar-sign-feast">标记为休息日</div>
-                    <div class="ui-calendar-sign-holiday">标记为节假日</div>
+                    <div class="ui-calendar-sign-holiday ui-calendar-sign-disabled">标记为节假日</div>
                 </div>
             </div>
             <div class="ui-calendar-right">
